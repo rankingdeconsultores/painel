@@ -3,8 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>RANKING AMMO</title>
-    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🚀</text></svg>">
+    <title>RANKING DIÁRIO - AMMO</title>
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🔥</text></svg>">
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;800;900&display=swap" rel="stylesheet">
     
     <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
@@ -17,6 +17,7 @@
         .main-header-title { text-align: center; padding: 15px 0; background: #111219; border-bottom: 1px solid #2a2d3e; z-index: 101; }
         .main-header-title h1 { margin: 0; font-size: 1.8rem; font-weight: 900; letter-spacing: 2px; color: #fff; text-transform: uppercase; }
         .main-header-title h1 span { color: var(--gold); }
+        .sub-header { font-size: 0.8rem; color: var(--green); letter-spacing: 3px; margin-top: 5px; text-transform: uppercase; font-weight: 700; }
 
         /* Métricas */
         .header-metrics { display: grid; grid-template-columns: repeat(4, 1fr); gap: 15px; padding: 15px; background: #151720; border-bottom: 1px solid #2a2d3e; }
@@ -24,32 +25,19 @@
         .metric-card h3 { margin: 0; font-size: 0.7rem; color: var(--text-muted); text-transform: uppercase; letter-spacing: 1px; }
         .metric-card .value { font-size: 1.3rem; font-weight: 800; margin-top: 5px; }
 
-        /* Layout Principal */
+        /* Layout */
         .dashboard-container { display: flex; flex: 1; overflow: hidden; padding: 20px; gap: 20px; background: radial-gradient(circle at 50% 50%, #1f2233 0%, #0f1016 80%); }
         
-        /* Pódio Neon e Flutuante */
+        /* Pódio Neon */
         .podium-section { 
-            flex: 1.4; 
-            display: flex; 
-            align-items: flex-end; 
-            justify-content: center; 
-            padding-bottom: 30px; 
-            position: relative;
+            flex: 1.4; display: flex; align-items: flex-end; justify-content: center; padding-bottom: 30px; position: relative;
             background: linear-gradient(to bottom, rgba(15, 16, 22, 0.2), rgba(15, 16, 22, 0.9)), 
                         url('https://static.vecteezy.com/system/resources/previews/007/046/592/original/abstract-technology-futuristic-concept-blue-glowing-neon-lines-on-dark-background-vector.jpg');
-            background-size: cover;
-            background-position: center;
-            border-radius: 20px;
-            box-shadow: 0 0 30px rgba(41, 121, 255, 0.2);
-            border: 1px solid #2979ff;
+            background-size: cover; background-position: center;
+            border-radius: 20px; box-shadow: 0 0 30px rgba(41, 121, 255, 0.2); border: 1px solid #2979ff;
         }
 
-        @keyframes float {
-            0% { transform: translateY(0px); }
-            50% { transform: translateY(-15px); }
-            100% { transform: translateY(0px); }
-        }
-
+        @keyframes float { 0% { transform: translateY(0px); } 50% { transform: translateY(-15px); } 100% { transform: translateY(0px); } }
         .podium-place { display: flex; flex-direction: column; align-items: center; margin: 0 8px; width: 30%; position: relative; animation: float 4s ease-in-out infinite; }
         .rank-1 { z-index: 10; padding-bottom: 20px; animation-delay: 0s; }
         .rank-2 { animation-delay: 1.5s; }
@@ -58,24 +46,17 @@
         .podium-img { width: 100px; height: 100px; border-radius: 50%; object-fit: cover; border: 4px solid #333; box-shadow: 0 10px 30px rgba(0,0,0,0.5); margin-bottom: 10px; z-index: 2; }
         
         .podium-card-body { 
-            background: rgba(20, 25, 40, 0.75); 
-            backdrop-filter: blur(8px);
-            padding: 10px; 
-            border-radius: 15px; 
-            text-align: center; 
-            width: 100%; 
-            border-top: 4px solid #333; 
-            position: relative; 
-            box-shadow: 0 10px 20px rgba(0,0,0,0.3);
+            background: rgba(20, 25, 40, 0.85); backdrop-filter: blur(8px); padding: 10px; border-radius: 15px; text-align: center; width: 100%; 
+            border-top: 4px solid #333; position: relative; box-shadow: 0 10px 20px rgba(0,0,0,0.3);
         }
         
         .p-name { font-weight: 800; font-size: 1rem; text-transform: uppercase; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
-        .p-val { font-size: 1.2rem; font-weight: 800; margin: 5px 0; }
-        .p-meta-dia { font-size: 0.7rem; color: #ccc; border-top: 1px solid rgba(255,255,255,0.1); padding-top: 5px; margin-top: 5px; }
-        .p-meta-val { color: var(--gold); font-weight: 700; font-size: 0.85rem; }
+        /* Valor principal agora é O DE HOJE */
+        .p-val { font-size: 1.4rem; font-weight: 900; margin: 5px 0; color: var(--gold); } 
+        .p-secundario { font-size: 0.7rem; color: #ccc; border-top: 1px solid rgba(255,255,255,0.1); padding-top: 5px; margin-top: 5px; }
 
         .rank-1 .podium-img { border-color: var(--gold); width: 140px; height: 140px; box-shadow: 0 0 25px rgba(255, 215, 0, 0.5); }
-        .rank-1 .podium-card-body { border-top-color: var(--gold); background: rgba(40, 30, 10, 0.8); }
+        .rank-1 .podium-card-body { border-top-color: var(--gold); background: rgba(40, 30, 10, 0.9); }
         .rank-2 .podium-img { border-color: #c0c0c0; }
         .rank-2 .podium-card-body { border-top-color: #c0c0c0; }
         .rank-3 .podium-img { border-color: #cd7f32; }
@@ -91,13 +72,11 @@
         .lr-info { flex: 1; display: flex; flex-direction: column; justify-content: center; }
         .lr-name { font-weight: 700; font-size: 0.85rem; }
         
-        .meta-dia-box { font-size: 0.7rem; color: #888; display: flex; align-items: center; gap: 5px; margin-top: 2px; }
-        .meta-dia-badge { background: #333; color: var(--gold); padding: 2px 6px; border-radius: 4px; font-weight: 700; }
-
         .lr-values { text-align: right; }
-        .lr-total { font-weight: 800; color: var(--green); display: block; font-size: 1.1rem; }
-        .lr-falta { font-size: 0.7rem; color: var(--red); }
-        .batido { color: var(--blue) !important; }
+        .lr-total { font-weight: 800; color: var(--green); display: block; font-size: 1.2rem; }
+        .lr-sub { font-size: 0.7rem; color: #777; }
+        
+        .meta-dia-badge { background: #333; color: var(--blue); padding: 2px 6px; border-radius: 4px; font-weight: 700; font-size: 0.65rem; display: inline-block; margin-top: 3px; }
 
         /* Overlays */
         #overlay-start, #overlay-evento { position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: 10000; display: flex; align-items: center; justify-content: center; backdrop-filter: blur(10px); }
@@ -113,7 +92,7 @@
 </head>
 <body>
 
-    <div id="overlay-start"><button id="btn-start">INICIAR SISTEMA</button></div>
+    <div id="overlay-start"><button id="btn-start">INICIAR RANKING DIÁRIO</button></div>
 
     <div id="overlay-evento">
         <div class="evento-titulo">NOVA VENDA!</div>
@@ -125,24 +104,27 @@
     <audio id="som-caixa" src="https://www.myinstants.com/media/sounds/ka-ching.mp3"></audio> 
     <audio id="som-aplausos" src="https://www.myinstants.com/media/sounds/aplausos_2.mp3"></audio>
 
-    <div class="main-header-title"><h1>GESTÃO À VISTA <span>ÓTICAS AMMO</span></h1></div>
+    <div class="main-header-title">
+        <h1>RANKING <span>ÓTICAS AMMO</span></h1>
+        <div class="sub-header">🏆 PERFORMANCE DO DIA (HOJE) 🏆</div>
+    </div>
 
     <div class="header-metrics">
         <div class="metric-card">
-            <h3>Meta Global (Loja)</h3>
+            <h3>Meta Global</h3>
             <span class="value" id="meta-loja" style="color:var(--text-main)">...</span>
         </div>
         <div class="metric-card">
-            <h3>Realizado Total</h3>
-            <span class="value" id="realizado-loja" style="color:var(--green)">...</span>
+            <h3>Realizado Mês</h3>
+            <span class="value" id="realizado-loja" style="color:var(--blue)">...</span>
         </div>
         <div class="metric-card">
             <h3>Vendido Hoje</h3>
-            <span class="value" id="venda-hoje" style="color:var(--gold)">...</span>
+            <span class="value" id="venda-hoje" style="color:var(--gold); border-bottom: 2px solid var(--gold)">...</span>
         </div>
         <div class="metric-card">
-            <h3>Dias Restantes (Úteis)</h3>
-            <span class="value" id="dias-uteis" style="color:var(--blue)">...</span>
+            <h3>Dias Restantes</h3>
+            <span class="value" id="dias-uteis" style="color:var(--text-muted)">...</span>
         </div>
     </div>
 
@@ -187,29 +169,24 @@
     let sistemaAtivo = false;
     let primeiraExecucao = true;
 
-    function formatMoney(v) { return v.toLocaleString('pt-BR', {style:'currency', currency:'BRL'}); }
+    function formatMoney(v) { return v.toLocaleString('pt-BR', {style:'currency', currency:'BRL', maximumFractionDigits:0}); }
     function normalizar(t) { return t ? t.toString().toUpperCase().trim() : ""; }
     function getAvatar(n) { return `https://ui-avatars.com/api/?name=${encodeURIComponent(n)}&background=random&color=fff&size=128`; }
 
-    // CÁLCULO DE DIAS ÚTEIS RESTANTES
     function calcDiasRestantes() {
         let hoje = new Date();
         let ano = hoje.getFullYear();
         let mes = hoje.getMonth();
         let ultimoDia = new Date(ano, mes + 1, 0).getDate();
         let uteis = 0;
-        
         for(let d = hoje.getDate(); d <= ultimoDia; d++) {
             let dataCheck = new Date(ano, mes, d);
             let diaSemana = dataCheck.getDay();
-            if (diaSemana !== 0) { // Exclui Domingos
-                uteis++;
-            }
+            if (diaSemana !== 0) uteis++;
         }
         return uteis > 0 ? uteis : 1;
     }
 
-    // ANIMAÇÃO DE NOVA VENDA
     function dispararEvento(nome, foto, valor) {
         filaAnimacao.push({nome, foto, valor});
         processarFila();
@@ -218,21 +195,16 @@
     function processarFila() {
         if (isAnimando || filaAnimacao.length === 0) return;
         isAnimando = true;
-        
         let ev = filaAnimacao.shift();
         let overlay = document.getElementById('overlay-evento');
-        
         document.getElementById('ev-nome').innerText = ev.nome;
         document.getElementById('ev-valor').innerText = "+" + formatMoney(ev.valor);
         let img = document.getElementById('ev-foto');
         img.src = ev.foto;
         img.onerror = () => img.src = getAvatar(ev.nome);
-
-        // Som e Confete
         let audio = document.getElementById('som-aplausos');
         audio.currentTime = 0; audio.play().catch(e=>{});
         confetti({ particleCount: 150, spread: 70, origin: { y: 0.6 } });
-
         overlay.style.display = 'flex';
         setTimeout(() => {
             overlay.style.display = 'none';
@@ -241,7 +213,6 @@
         }, 5000);
     }
 
-    // ATUALIZAÇÃO DO DASHBOARD
     function atualizar() {
         if (!sistemaAtivo) return;
 
@@ -305,22 +276,20 @@
                 let vendido = vendasMap[key];
                 let hoje = hojeMap[key];
                 let falta = m.meta - vendido;
-                
-                let metaDia = 0;
-                if (falta > 0) {
-                    metaDia = falta / diasRestantes;
-                }
+                let metaDia = falta > 0 ? falta / diasRestantes : 0;
 
-                return {
-                    ...m,
-                    vendido: vendido,
-                    hoje: hoje,
-                    falta: falta,
-                    metaDia: metaDia
-                };
+                return { ...m, vendido, hoje, falta, metaDia };
             });
 
-            ranking.sort((a, b) => b.vendido - a.vendido);
+            // --- LÓGICA DE ORDENAÇÃO ALTERADA PARA HOJE ---
+            ranking.sort((a, b) => {
+                // 1. Quem vendeu mais HOJE
+                if (b.hoje !== a.hoje) {
+                    return b.hoje - a.hoje;
+                }
+                // 2. Desempate: Quem vendeu mais no MÊS
+                return b.vendido - a.vendido;
+            });
 
             renderizarTela(ranking, metaLojaTotal, totalLoja, totalHojeLoja, diasRestantes);
 
@@ -344,17 +313,9 @@
 
         for(let i = 3; i < ranking.length; i++) {
             let r = ranking[i];
-            if (r.meta === 0 && r.vendido === 0) continue;
-
-            let htmlMetaDia = "";
-            if (r.falta <= 0) {
-                htmlMetaDia = `<span class="meta-dia-badge batido">META BATIDA! 🏆</span>`;
-            } else {
-                htmlMetaDia = `META HOJE: <span class="meta-dia-badge">${formatMoney(r.metaDia)}</span>`;
-            }
-
-            // Exibir venda de hoje na lista também
-            let htmlHojeLista = r.hoje > 0 ? `<span style="font-size:0.75rem; color:var(--gold); font-weight:bold; margin-right:5px;">(+${formatMoney(r.hoje)})</span>` : '';
+            
+            // Ocultar da lista apenas se nunca vendeu nada no mês E não vendeu hoje
+            if (r.vendido === 0 && r.hoje === 0 && r.meta === 0) continue;
 
             let div = document.createElement('div');
             div.className = "list-row";
@@ -363,11 +324,11 @@
                 <img src="${r.foto}" class="lr-avatar" onerror="this.src='${getAvatar(r.nome)}'">
                 <div class="lr-info">
                     <div class="lr-name">${r.nome}</div>
-                    <div class="meta-dia-box">${htmlMetaDia}</div>
+                    <span class="meta-dia-badge">Meta Diária: ${formatMoney(r.metaDia)}</span>
                 </div>
                 <div class="lr-values">
-                    <span class="lr-total">${htmlHojeLista} ${formatMoney(r.vendido)}</span>
-                    <span class="lr-falta">Falta: ${formatMoney(Math.max(0, r.falta))}</span>
+                    <span class="lr-total" style="color:var(--gold)">HOJE: ${formatMoney(r.hoje)}</span>
+                    <span class="lr-sub">Mês: ${formatMoney(r.vendido)}</span>
                 </div>
             `;
             list.appendChild(div);
@@ -377,25 +338,15 @@
     function renderPodium(r, pos, container) {
         if (!r) return;
 
-        let htmlMetaDia = r.falta <= 0 
-            ? `<div class="p-meta-val" style="color:var(--blue)">BATIDA!</div>`
-            : `<div class="p-meta-val">${formatMoney(r.metaDia)}</div>`;
-
-        let htmlHoje = r.hoje > 0 
-            ? `<div style="color:var(--gold); font-size:0.85rem; font-weight:bold; margin-top:2px;">HOJE: +${formatMoney(r.hoje)}</div>` 
-            : '';
-
         let div = document.createElement('div');
         div.className = `podium-place rank-${pos}`;
         div.innerHTML = `
             <img src="${r.foto}" class="podium-img" onerror="this.src='${getAvatar(r.nome)}'">
             <div class="podium-card-body">
                 <div class="p-name">${r.nome.split(' ')[0]}</div>
-                <div class="p-val">${formatMoney(r.vendido)}</div>
-                ${htmlHoje}
-                <div class="p-meta-dia">
-                    META HOJE
-                    ${htmlMetaDia}
+                <div class="p-val" title="Venda Hoje">${formatMoney(r.hoje)}</div>
+                <div class="p-secundario">
+                    MÊS: ${formatMoney(r.vendido)}
                 </div>
             </div>
         `;
