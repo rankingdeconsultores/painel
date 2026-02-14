@@ -8,67 +8,73 @@
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;800;900&display=swap" rel="stylesheet">
     
     <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels@2.0.0"></script>
 
     <style>
         :root { --bg-dark: #0f1016; --bg-card: #1b1d29; --text-main: #ffffff; --text-muted: #8b9bb4; --gold: #ffd700; --green: #00e676; --blue: #2979ff; --red: #ff1744; }
         body { background-color: var(--bg-dark); color: var(--text-main); font-family: 'Montserrat', sans-serif; margin: 0; padding: 0; height: 100vh; overflow: hidden; display: flex; flex-direction: column; }
         
         /* Cabeçalho */
-        .main-header-title { text-align: center; padding: 10px 0; background: #111219; border-bottom: 1px solid #2a2d3e; z-index: 101; }
-        .main-header-title h1 { margin: 0; font-size: 1.5rem; font-weight: 900; letter-spacing: 2px; color: #fff; text-transform: uppercase; }
+        .main-header-title { text-align: center; padding: 15px 0; background: #111219; border-bottom: 1px solid #2a2d3e; z-index: 101; }
+        .main-header-title h1 { margin: 0; font-size: 1.8rem; font-weight: 900; letter-spacing: 2px; color: #fff; text-transform: uppercase; }
         .main-header-title h1 span { color: var(--gold); }
 
         /* Métricas */
-        .header-metrics { display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; padding: 10px; background: #151720; border-bottom: 1px solid #2a2d3e; }
-        .metric-card { background: var(--bg-card); border-radius: 8px; padding: 8px; display: flex; flex-direction: column; align-items: center; justify-content: center; border: 1px solid #2a2d3e; }
-        .metric-card h3 { margin: 0; font-size: 0.65rem; color: var(--text-muted); text-transform: uppercase; letter-spacing: 1px; }
-        .metric-card .value { font-size: 1.1rem; font-weight: 800; margin-top: 3px; }
-
-        /* ÁREA DO GRÁFICO */
-        .chart-section {
-            background: rgba(21, 23, 32, 0.5);
-            padding: 5px 20px;
-            height: 200px; /* Altura controlada */
-            width: 100%;
-            box-sizing: border-box;
-            border-bottom: 1px solid #2a2d3e;
-            display: flex;
-            justify-content: center;
-        }
-        .chart-container { position: relative; width: 98%; height: 100%; }
+        .header-metrics { display: grid; grid-template-columns: repeat(4, 1fr); gap: 15px; padding: 15px; background: #151720; border-bottom: 1px solid #2a2d3e; }
+        .metric-card { background: var(--bg-card); border-radius: 8px; padding: 10px; display: flex; flex-direction: column; align-items: center; justify-content: center; border: 1px solid #2a2d3e; }
+        .metric-card h3 { margin: 0; font-size: 0.7rem; color: var(--text-muted); text-transform: uppercase; letter-spacing: 1px; }
+        .metric-card .value { font-size: 1.3rem; font-weight: 800; margin-top: 5px; }
 
         /* Layout Principal */
-        .dashboard-container { display: flex; flex: 1; overflow: hidden; padding: 15px; gap: 15px; background: radial-gradient(circle at 50% 50%, #1f2233 0%, #0f1016 80%); }
+        .dashboard-container { display: flex; flex: 1; overflow: hidden; padding: 20px; gap: 20px; background: radial-gradient(circle at 50% 50%, #1f2233 0%, #0f1016 80%); }
         
-        /* Pódio */
+        /* Pódio Neon e Flutuante */
         .podium-section { 
-            flex: 1.4; display: flex; align-items: flex-end; justify-content: center; padding-bottom: 20px; position: relative;
+            flex: 1.4; 
+            display: flex; 
+            align-items: flex-end; 
+            justify-content: center; 
+            padding-bottom: 30px; 
+            position: relative;
             background: linear-gradient(to bottom, rgba(15, 16, 22, 0.2), rgba(15, 16, 22, 0.9)), 
                         url('https://static.vecteezy.com/system/resources/previews/007/046/592/original/abstract-technology-futuristic-concept-blue-glowing-neon-lines-on-dark-background-vector.jpg');
-            background-size: cover; background-position: center;
-            border-radius: 20px; box-shadow: 0 0 30px rgba(41, 121, 255, 0.2); border: 1px solid #2979ff;
+            background-size: cover;
+            background-position: center;
+            border-radius: 20px;
+            box-shadow: 0 0 30px rgba(41, 121, 255, 0.2);
+            border: 1px solid #2979ff;
         }
 
-        @keyframes float { 0% { transform: translateY(0px); } 50% { transform: translateY(-10px); } 100% { transform: translateY(0px); } }
-        .podium-place { display: flex; flex-direction: column; align-items: center; margin: 0 5px; width: 30%; position: relative; animation: float 4s ease-in-out infinite; }
-        .rank-1 { z-index: 10; padding-bottom: 15px; animation-delay: 0s; }
+        @keyframes float {
+            0% { transform: translateY(0px); }
+            50% { transform: translateY(-15px); }
+            100% { transform: translateY(0px); }
+        }
+
+        .podium-place { display: flex; flex-direction: column; align-items: center; margin: 0 8px; width: 30%; position: relative; animation: float 4s ease-in-out infinite; }
+        .rank-1 { z-index: 10; padding-bottom: 20px; animation-delay: 0s; }
         .rank-2 { animation-delay: 1.5s; }
         .rank-3 { animation-delay: 0.8s; }
         
-        .podium-img { width: 80px; height: 80px; border-radius: 50%; object-fit: cover; border: 4px solid #333; box-shadow: 0 10px 30px rgba(0,0,0,0.5); margin-bottom: 10px; z-index: 2; }
+        .podium-img { width: 100px; height: 100px; border-radius: 50%; object-fit: cover; border: 4px solid #333; box-shadow: 0 10px 30px rgba(0,0,0,0.5); margin-bottom: 10px; z-index: 2; }
         
         .podium-card-body { 
-            background: rgba(20, 25, 40, 0.75); backdrop-filter: blur(8px); padding: 8px; border-radius: 15px; text-align: center; width: 100%; 
-            border-top: 4px solid #333; position: relative; box-shadow: 0 10px 20px rgba(0,0,0,0.3);
+            background: rgba(20, 25, 40, 0.75); 
+            backdrop-filter: blur(8px);
+            padding: 10px; 
+            border-radius: 15px; 
+            text-align: center; 
+            width: 100%; 
+            border-top: 4px solid #333; 
+            position: relative; 
+            box-shadow: 0 10px 20px rgba(0,0,0,0.3);
         }
         
-        .p-name { font-weight: 800; font-size: 0.9rem; text-transform: uppercase; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
-        .p-val { font-size: 1.1rem; font-weight: 800; margin: 3px 0; }
-        .p-meta-dia { font-size: 0.65rem; color: #ccc; border-top: 1px solid rgba(255,255,255,0.1); padding-top: 5px; margin-top: 5px; }
+        .p-name { font-weight: 800; font-size: 1rem; text-transform: uppercase; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+        .p-val { font-size: 1.2rem; font-weight: 800; margin: 5px 0; }
+        .p-meta-dia { font-size: 0.7rem; color: #ccc; border-top: 1px solid rgba(255,255,255,0.1); padding-top: 5px; margin-top: 5px; }
+        .p-meta-val { color: var(--gold); font-weight: 700; font-size: 0.85rem; }
 
-        .rank-1 .podium-img { border-color: var(--gold); width: 110px; height: 110px; box-shadow: 0 0 25px rgba(255, 215, 0, 0.5); }
+        .rank-1 .podium-img { border-color: var(--gold); width: 140px; height: 140px; box-shadow: 0 0 25px rgba(255, 215, 0, 0.5); }
         .rank-1 .podium-card-body { border-top-color: var(--gold); background: rgba(40, 30, 10, 0.8); }
         .rank-2 .podium-img { border-color: #c0c0c0; }
         .rank-2 .podium-card-body { border-top-color: #c0c0c0; }
@@ -76,17 +82,22 @@
         .rank-3 .podium-card-body { border-top-color: #cd7f32; }
 
         /* Lista */
-        .list-section { flex: 1; background: rgba(21, 23, 32, 0.6); border-radius: 15px; padding: 10px; overflow-y: auto; display: flex; flex-direction: column; gap: 6px; border: 1px solid #2a2d3e; }
-        .list-row { display: flex; align-items: center; background: var(--bg-card); padding: 6px 10px; border-radius: 8px; border: 1px solid #2a2d3e; transition: transform 0.2s; }
+        .list-section { flex: 1; background: rgba(21, 23, 32, 0.6); border-radius: 15px; padding: 10px; overflow-y: auto; display: flex; flex-direction: column; gap: 8px; border: 1px solid #2a2d3e; }
+        .list-row { display: flex; align-items: center; background: var(--bg-card); padding: 8px 12px; border-radius: 8px; border: 1px solid #2a2d3e; transition: transform 0.2s; }
+        .list-row:hover { transform: translateX(5px); background: #252836; }
         
-        .lr-rank { font-size: 0.9rem; font-weight: 800; color: #555; width: 20px; }
-        .lr-avatar { width: 35px; height: 35px; border-radius: 50%; object-fit: cover; margin-right: 10px; border: 2px solid #333; }
+        .lr-rank { font-size: 1rem; font-weight: 800; color: #555; width: 25px; }
+        .lr-avatar { width: 40px; height: 40px; border-radius: 50%; object-fit: cover; margin-right: 10px; border: 2px solid #333; }
         .lr-info { flex: 1; display: flex; flex-direction: column; justify-content: center; }
-        .lr-name { font-weight: 700; font-size: 0.8rem; }
+        .lr-name { font-weight: 700; font-size: 0.85rem; }
+        
+        .meta-dia-box { font-size: 0.7rem; color: #888; display: flex; align-items: center; gap: 5px; margin-top: 2px; }
+        .meta-dia-badge { background: #333; color: var(--gold); padding: 2px 6px; border-radius: 4px; font-weight: 700; }
+
         .lr-values { text-align: right; }
-        .lr-total { font-weight: 800; color: var(--green); display: block; font-size: 1rem; }
-        .lr-falta { font-size: 0.65rem; color: var(--red); }
-        .meta-dia-badge { background: #333; color: var(--gold); padding: 1px 5px; border-radius: 4px; font-weight: 700; font-size: 0.65rem;}
+        .lr-total { font-weight: 800; color: var(--green); display: block; font-size: 1.1rem; }
+        .lr-falta { font-size: 0.7rem; color: var(--red); }
+        .batido { color: var(--blue) !important; }
 
         /* Overlays */
         #overlay-start, #overlay-evento { position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: 10000; display: flex; align-items: center; justify-content: center; backdrop-filter: blur(10px); }
@@ -94,8 +105,8 @@
         #overlay-evento { background: rgba(0,0,0,0.95); display: none; flex-direction: column; }
         #btn-start { padding: 15px 40px; font-size: 1.2rem; background: var(--green); color: #000; border: none; border-radius: 50px; font-weight: 900; cursor: pointer; text-transform: uppercase; box-shadow: 0 0 20px rgba(0,230,118,0.4); }
         
-        .evento-titulo { font-size: 3rem; font-weight: 900; margin-bottom: 20px; color: var(--green); text-transform: uppercase; }
-        .evento-foto { width: 200px; height: 200px; border-radius: 50%; border: 8px solid #fff; object-fit: cover; margin-bottom: 20px; box-shadow: 0 0 50px rgba(255,255,255,0.2); }
+        .evento-titulo { font-size: 3rem; font-weight: 900; margin-bottom: 20px; color: var(--green); text-transform: uppercase; letter-spacing: 2px; }
+        .evento-foto { width: 220px; height: 220px; border-radius: 50%; border: 8px solid #fff; object-fit: cover; margin-bottom: 20px; box-shadow: 0 0 50px rgba(255,255,255,0.2); }
         .evento-nome { font-size: 2.5rem; font-weight: 900; color: #fff; margin-bottom: 10px; }
         .evento-valor { font-size: 4rem; font-weight: 900; color: var(--gold); text-shadow: 0 0 20px rgba(255, 215, 0, 0.5); }
     </style>
@@ -118,11 +129,11 @@
 
     <div class="header-metrics">
         <div class="metric-card">
-            <h3>Meta Global</h3>
+            <h3>Meta Global (Loja)</h3>
             <span class="value" id="meta-loja" style="color:var(--text-main)">...</span>
         </div>
         <div class="metric-card">
-            <h3>Total Mês</h3>
+            <h3>Realizado Total</h3>
             <span class="value" id="realizado-loja" style="color:var(--green)">...</span>
         </div>
         <div class="metric-card">
@@ -130,14 +141,8 @@
             <span class="value" id="venda-hoje" style="color:var(--gold)">...</span>
         </div>
         <div class="metric-card">
-            <h3>Dias Restantes</h3>
+            <h3>Dias Restantes (Úteis)</h3>
             <span class="value" id="dias-uteis" style="color:var(--blue)">...</span>
-        </div>
-    </div>
-
-    <div class="chart-section">
-        <div class="chart-container">
-            <canvas id="salesChart"></canvas>
         </div>
     </div>
 
@@ -181,26 +186,30 @@
     let isAnimando = false;
     let sistemaAtivo = false;
     let primeiraExecucao = true;
-    let chartInstance = null;
 
-    function formatMoney(v) { return v.toLocaleString('pt-BR', {style:'currency', currency:'BRL', maximumFractionDigits:0}); }
+    function formatMoney(v) { return v.toLocaleString('pt-BR', {style:'currency', currency:'BRL'}); }
     function normalizar(t) { return t ? t.toString().toUpperCase().trim() : ""; }
     function getAvatar(n) { return `https://ui-avatars.com/api/?name=${encodeURIComponent(n)}&background=random&color=fff&size=128`; }
 
+    // CÁLCULO DE DIAS ÚTEIS RESTANTES
     function calcDiasRestantes() {
         let hoje = new Date();
         let ano = hoje.getFullYear();
         let mes = hoje.getMonth();
         let ultimoDia = new Date(ano, mes + 1, 0).getDate();
         let uteis = 0;
+        
         for(let d = hoje.getDate(); d <= ultimoDia; d++) {
             let dataCheck = new Date(ano, mes, d);
             let diaSemana = dataCheck.getDay();
-            if (diaSemana !== 0) uteis++;
+            if (diaSemana !== 0) { // Exclui Domingos
+                uteis++;
+            }
         }
         return uteis > 0 ? uteis : 1;
     }
 
+    // ANIMAÇÃO DE NOVA VENDA
     function dispararEvento(nome, foto, valor) {
         filaAnimacao.push({nome, foto, valor});
         processarFila();
@@ -209,16 +218,21 @@
     function processarFila() {
         if (isAnimando || filaAnimacao.length === 0) return;
         isAnimando = true;
+        
         let ev = filaAnimacao.shift();
         let overlay = document.getElementById('overlay-evento');
+        
         document.getElementById('ev-nome').innerText = ev.nome;
         document.getElementById('ev-valor').innerText = "+" + formatMoney(ev.valor);
         let img = document.getElementById('ev-foto');
         img.src = ev.foto;
         img.onerror = () => img.src = getAvatar(ev.nome);
+
+        // Som e Confete
         let audio = document.getElementById('som-aplausos');
         audio.currentTime = 0; audio.play().catch(e=>{});
         confetti({ particleCount: 150, spread: 70, origin: { y: 0.6 } });
+
         overlay.style.display = 'flex';
         setTimeout(() => {
             overlay.style.display = 'none';
@@ -227,63 +241,7 @@
         }, 5000);
     }
 
-    // --- FUNÇÃO DE CRIAÇÃO DO GRÁFICO ---
-    function updateChart(labels, dataTotal, dataHoje) {
-        const ctx = document.getElementById('salesChart').getContext('2d');
-
-        if (chartInstance) {
-            chartInstance.data.labels = labels;
-            chartInstance.data.datasets[0].data = dataHoje; // Hoje primeiro (para visual)
-            chartInstance.data.datasets[1].data = dataTotal;
-            chartInstance.update();
-        } else {
-            chartInstance = new Chart(ctx, {
-                type: 'bar',
-                data: {
-                    labels: labels,
-                    datasets: [
-                        {
-                            label: 'Vendido HOJE',
-                            data: dataHoje,
-                            backgroundColor: '#ffd700', // Dourado
-                            borderRadius: 4,
-                            barPercentage: 0.7,
-                            order: 1
-                        },
-                        {
-                            label: 'Acumulado MÊS',
-                            data: dataTotal,
-                            backgroundColor: '#00e676', // Verde
-                            borderRadius: 4,
-                            barPercentage: 0.7,
-                            order: 2
-                        }
-                    ]
-                },
-                options: {
-                    responsive: true,
-                    maintainAspectRatio: false,
-                    plugins: {
-                        legend: { labels: { color: '#fff', font: {family: 'Montserrat'} } },
-                        datalabels: { display: false } // Poluição visual evitar
-                    },
-                    scales: {
-                        y: {
-                            beginAtZero: true,
-                            grid: { color: '#333' },
-                            ticks: { color: '#888', font: {size: 10} }
-                        },
-                        x: {
-                            grid: { display: false },
-                            ticks: { color: '#fff', font: {size: 9}, autoSkip: false, maxRotation: 90, minRotation: 90 }
-                        }
-                    },
-                    animation: { duration: 1000 }
-                }
-            });
-        }
-    }
-
+    // ATUALIZAÇÃO DO DASHBOARD
     function atualizar() {
         if (!sistemaAtivo) return;
 
@@ -314,6 +272,7 @@
                 if (vendasMap[nome] !== undefined) {
                     vendasMap[nome] += valor;
                     totalLoja += valor;
+
                     if (dataVenda === hojeStr) {
                         hojeMap[nome] += valor;
                         totalHojeLoja += valor;
@@ -346,19 +305,22 @@
                 let vendido = vendasMap[key];
                 let hoje = hojeMap[key];
                 let falta = m.meta - vendido;
-                let metaDia = falta > 0 ? falta / diasRestantes : 0;
+                
+                let metaDia = 0;
+                if (falta > 0) {
+                    metaDia = falta / diasRestantes;
+                }
 
-                return { ...m, vendido, hoje, falta, metaDia };
+                return {
+                    ...m,
+                    vendido: vendido,
+                    hoje: hoje,
+                    falta: falta,
+                    metaDia: metaDia
+                };
             });
 
             ranking.sort((a, b) => b.vendido - a.vendido);
-
-            // ATUALIZA O GRÁFICO (Filtrar quem não vendeu nada para limpar o visual?)
-            // Optei por mostrar todos para verem quem está zerado também
-            const labels = ranking.map(r => r.nome.split(' ')[0]);
-            const dataTotal = ranking.map(r => r.vendido);
-            const dataHoje = ranking.map(r => r.hoje);
-            updateChart(labels, dataTotal, dataHoje);
 
             renderizarTela(ranking, metaLojaTotal, totalLoja, totalHojeLoja, diasRestantes);
 
@@ -384,10 +346,15 @@
             let r = ranking[i];
             if (r.meta === 0 && r.vendido === 0) continue;
 
-            let htmlMetaDia = r.falta <= 0 ? `<span class="meta-dia-badge batido">BATIDA! 🏆</span>` : `META HOJE: <span class="meta-dia-badge">${formatMoney(r.metaDia)}</span>`;
-            
-            // Adicionado indicador de venda HOJE na lista também
-            let htmlHojeLista = r.hoje > 0 ? `<span style="font-size:0.7rem; color:var(--gold); font-weight:bold; margin-right:5px;">(+${formatMoney(r.hoje)})</span>` : '';
+            let htmlMetaDia = "";
+            if (r.falta <= 0) {
+                htmlMetaDia = `<span class="meta-dia-badge batido">META BATIDA! 🏆</span>`;
+            } else {
+                htmlMetaDia = `META HOJE: <span class="meta-dia-badge">${formatMoney(r.metaDia)}</span>`;
+            }
+
+            // Exibir venda de hoje na lista também
+            let htmlHojeLista = r.hoje > 0 ? `<span style="font-size:0.75rem; color:var(--gold); font-weight:bold; margin-right:5px;">(+${formatMoney(r.hoje)})</span>` : '';
 
             let div = document.createElement('div');
             div.className = "list-row";
@@ -409,8 +376,14 @@
 
     function renderPodium(r, pos, container) {
         if (!r) return;
-        let htmlMetaDia = r.falta <= 0 ? `<div style="color:var(--blue); font-weight:bold">BATIDA!</div>` : `<div>${formatMoney(r.metaDia)}</div>`;
-        let htmlHoje = r.hoje > 0 ? `<div style="color:var(--gold); font-size:0.8rem; font-weight:bold; margin-top:2px;">HOJE: +${formatMoney(r.hoje)}</div>` : '';
+
+        let htmlMetaDia = r.falta <= 0 
+            ? `<div class="p-meta-val" style="color:var(--blue)">BATIDA!</div>`
+            : `<div class="p-meta-val">${formatMoney(r.metaDia)}</div>`;
+
+        let htmlHoje = r.hoje > 0 
+            ? `<div style="color:var(--gold); font-size:0.85rem; font-weight:bold; margin-top:2px;">HOJE: +${formatMoney(r.hoje)}</div>` 
+            : '';
 
         let div = document.createElement('div');
         div.className = `podium-place rank-${pos}`;
@@ -420,7 +393,10 @@
                 <div class="p-name">${r.nome.split(' ')[0]}</div>
                 <div class="p-val">${formatMoney(r.vendido)}</div>
                 ${htmlHoje}
-                <div class="p-meta-dia">META HOJE ${htmlMetaDia}</div>
+                <div class="p-meta-dia">
+                    META HOJE
+                    ${htmlMetaDia}
+                </div>
             </div>
         `;
         container.appendChild(div);
@@ -430,6 +406,7 @@
         document.getElementById('overlay-start').style.display = 'none';
         sistemaAtivo = true;
         ['som-caixa','som-aplausos'].forEach(id=>{ let a=document.getElementById(id); a.volume=0; a.play().then(()=>a.volume=1).catch(()=>{}); });
+        
         atualizar();
         setInterval(atualizar, 5000);
     });
