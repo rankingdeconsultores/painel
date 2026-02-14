@@ -3,8 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>RANKING AMMO</title>
-    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🏆</text></svg>">
+    <title>RANKING AMMO - META DINÂMICA</title>
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🚀</text></svg>">
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;800;900&display=swap" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
 
@@ -12,83 +12,105 @@
         :root { --bg-dark: #0f1016; --bg-card: #1b1d29; --text-main: #ffffff; --text-muted: #8b9bb4; --gold: #ffd700; --green: #00e676; --blue: #2979ff; --red: #ff1744; }
         body { background-color: var(--bg-dark); color: var(--text-main); font-family: 'Montserrat', sans-serif; margin: 0; padding: 0; height: 100vh; overflow: hidden; display: flex; flex-direction: column; }
         
-        .main-header-title { text-align: center; padding: 15px 0; background: #111219; border-bottom: 1px solid #2a2d3e; box-shadow: 0 4px 20px rgba(0,0,0,0.5); z-index: 101; }
-        .main-header-title h1 { margin: 0; font-size: 2rem; font-weight: 900; letter-spacing: 2px; color: #fff; text-transform: uppercase; }
+        /* Cabeçalho */
+        .main-header-title { text-align: center; padding: 15px 0; background: #111219; border-bottom: 1px solid #2a2d3e; z-index: 101; }
+        .main-header-title h1 { margin: 0; font-size: 1.8rem; font-weight: 900; letter-spacing: 2px; color: #fff; text-transform: uppercase; }
         .main-header-title h1 span { color: var(--gold); }
 
-        .header-metrics { display: grid; grid-template-columns: repeat(5, 1fr); gap: 15px; padding: 15px; background: #151720; border-bottom: 1px solid #2a2d3e; }
-        .metric-card { background: var(--bg-card); border-radius: 12px; padding: 10px; display: flex; flex-direction: column; align-items: center; justify-content: center; }
-        .metric-card h3 { margin: 0; font-size: 0.7rem; color: var(--text-muted); text-transform: uppercase; }
-        .metric-card .value { font-size: 1.4rem; font-weight: 800; margin-top: 5px; }
+        /* Métricas */
+        .header-metrics { display: grid; grid-template-columns: repeat(4, 1fr); gap: 15px; padding: 15px; background: #151720; border-bottom: 1px solid #2a2d3e; }
+        .metric-card { background: var(--bg-card); border-radius: 8px; padding: 10px; display: flex; flex-direction: column; align-items: center; justify-content: center; border: 1px solid #2a2d3e; }
+        .metric-card h3 { margin: 0; font-size: 0.7rem; color: var(--text-muted); text-transform: uppercase; letter-spacing: 1px; }
+        .metric-card .value { font-size: 1.3rem; font-weight: 800; margin-top: 5px; }
 
-        .dashboard-container { display: flex; flex: 1; overflow: hidden; padding: 20px; gap: 20px; background: radial-gradient(circle at 30% 50%, #222536 0%, #0f1016 70%); }
-        .podium-section { flex: 1.4; display: flex; align-items: flex-end; justify-content: center; padding-bottom: 40px; position: relative; }
-        .podium-place { display: flex; flex-direction: column; align-items: center; margin: 0 10px; width: 30%; position: relative; animation: float 4s ease-in-out infinite; }
-        @keyframes float { 0% { transform: translateY(0px); } 50% { transform: translateY(-15px); } 100% { transform: translateY(0px); } }
-
-        .podium-img { width: 100px; height: 100px; border-radius: 50%; object-fit: cover; border: 4px solid #333; box-shadow: 0 10px 30px rgba(0,0,0,0.6); margin-bottom: 15px; z-index: 2; }
-        .podium-card-body { background: rgba(27, 29, 41, 0.95); padding: 15px; border-radius: 15px; text-align: center; width: 100%; border-top: 4px solid #333; }
-        .p-name { font-weight: 800; font-size: 1.1rem; text-transform: uppercase; }
-        .p-val { font-size: 1.4rem; font-weight: 800; }
-        .p-hoje { font-size: 0.8rem; background: rgba(255,255,255,0.1); border-radius: 10px; padding: 2px 8px; margin-top: 5px; display: inline-block; }
+        /* Layout Principal */
+        .dashboard-container { display: flex; flex: 1; overflow: hidden; padding: 20px; gap: 20px; background: radial-gradient(circle at 50% 50%, #1f2233 0%, #0f1016 80%); }
         
-        .rank-1 { order: 2; z-index: 10; margin-bottom: 40px; }
-        .rank-1 .podium-img { border-color: #ffd700; width: 140px; height: 140px; }
-        .rank-1 .podium-card-body { background: linear-gradient(135deg, #FFD700 0%, #FDB931 100%); color: #000; border-top-color: #fff; }
-        .rank-1 .p-hoje { color: #000; border: 1px solid #000; }
+        /* Pódio */
+        .podium-section { flex: 1.2; display: flex; align-items: flex-end; justify-content: center; padding-bottom: 20px; position: relative; }
+        .podium-place { display: flex; flex-direction: column; align-items: center; margin: 0 5px; width: 32%; position: relative; transition: transform 0.5s; }
         
-        .rank-2 { order: 1; animation-delay: 1.5s; }
-        .rank-2 .podium-img { border-color: #e0e0e0; }
-        .rank-2 .podium-card-body { background: linear-gradient(135deg, #e0e0e0 0%, #bdbdbd 100%); color: #000; border-top-color: #fff; }
-        .rank-2 .p-hoje { color: #000; border: 1px solid #000; }
+        .podium-img { width: 90px; height: 90px; border-radius: 50%; object-fit: cover; border: 4px solid #333; box-shadow: 0 10px 30px rgba(0,0,0,0.5); margin-bottom: 10px; z-index: 2; }
+        .podium-card-body { background: rgba(27, 29, 41, 0.9); padding: 10px; border-radius: 10px; text-align: center; width: 100%; border-top: 4px solid #333; position: relative; }
+        
+        .p-name { font-weight: 800; font-size: 1rem; text-transform: uppercase; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+        .p-val { font-size: 1.2rem; font-weight: 800; margin: 5px 0; }
+        .p-meta-dia { font-size: 0.7rem; color: var(--text-muted); border-top: 1px solid rgba(255,255,255,0.1); padding-top: 5px; }
+        .p-meta-val { color: var(--gold); font-weight: 700; }
 
-        .rank-3 { order: 3; animation-delay: 1.0s; }
+        .rank-1 .podium-img { border-color: var(--gold); width: 130px; height: 130px; }
+        .rank-1 .podium-card-body { background: linear-gradient(180deg, rgba(255, 215, 0, 0.1) 0%, rgba(27, 29, 41, 0.95) 50%); border-top-color: var(--gold); }
+        .rank-1 { z-index: 10; padding-bottom: 20px; }
+        
+        .rank-2 .podium-img { border-color: #c0c0c0; }
+        .rank-2 .podium-card-body { border-top-color: #c0c0c0; }
+        
         .rank-3 .podium-img { border-color: #cd7f32; }
-        .rank-3 .podium-card-body { background: linear-gradient(135deg, #CD7F32 0%, #8B4513 100%); color: #fff; border-top-color: #ffccbc; }
+        .rank-3 .podium-card-body { border-top-color: #cd7f32; }
 
-        .list-section { flex: 1; background: rgba(21, 23, 32, 0.8); border-radius: 20px; padding: 15px; overflow-y: auto; display: flex; flex-direction: column; gap: 10px; }
-        .list-row { display: flex; align-items: center; background: var(--bg-card); padding: 10px 15px; border-radius: 10px; border: 1px solid #2a2d3e; transition: 0.2s; }
-        .lr-rank { font-size: 1.2rem; font-weight: 800; color: #555; width: 30px; }
-        .lr-avatar { width: 45px; height: 45px; border-radius: 50%; object-fit: cover; margin-right: 15px; border: 2px solid #333; }
-        .lr-info { flex: 1; }
-        .lr-name { font-weight: 700; font-size: 0.9rem; }
-        .progress-bar-container { width: 100%; height: 4px; background: #111; margin-top: 5px; border-radius: 2px; }
-        .progress-bar { height: 100%; border-radius: 2px; }
-        .lr-values { text-align: right; display: flex; flex-direction: column; align-items: flex-end; }
-        .lr-total { font-weight: 800; color: var(--green); display: block; font-size: 1.3rem; }
-        .lr-hoje { font-size: 0.75rem; color: var(--blue); margin-top: 2px; font-weight: 700; }
+        /* Lista */
+        .list-section { flex: 1; background: rgba(21, 23, 32, 0.6); border-radius: 15px; padding: 10px; overflow-y: auto; display: flex; flex-direction: column; gap: 8px; border: 1px solid #2a2d3e; }
+        .list-row { display: flex; align-items: center; background: var(--bg-card); padding: 8px 12px; border-radius: 8px; border: 1px solid #2a2d3e; }
         
-        #overlay-start, #overlay-evento { position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: 10000; display: flex; align-items: center; justify-content: center; backdrop-filter: blur(5px); }
-        #overlay-start { background: rgba(0,0,0,0.95); }
-        #overlay-evento { background: rgba(0,0,0,0.9); display: none; flex-direction: column; }
-        #btn-start { padding: 20px 40px; font-size: 1.5rem; background: var(--blue); color: #fff; border: none; border-radius: 50px; font-weight: 800; cursor: pointer; }
+        .lr-rank { font-size: 1rem; font-weight: 800; color: #555; width: 25px; }
+        .lr-avatar { width: 40px; height: 40px; border-radius: 50%; object-fit: cover; margin-right: 10px; border: 2px solid #333; }
+        .lr-info { flex: 1; display: flex; flex-direction: column; justify-content: center; }
+        .lr-name { font-weight: 700; font-size: 0.85rem; }
         
-        .evento-titulo { font-size: 2.5rem; font-weight: 900; margin-bottom: 10px; color: var(--green); }
-        .evento-foto { width: 200px; height: 200px; border-radius: 50%; border: 6px solid #fff; object-fit: cover; margin: 20px; }
-        .evento-nome { font-size: 3rem; font-weight: 900; color: var(--gold); }
+        /* Barra de Meta Diária */
+        .meta-dia-box { font-size: 0.7rem; color: #888; display: flex; align-items: center; gap: 5px; margin-top: 2px; }
+        .meta-dia-badge { background: #333; color: var(--gold); padding: 2px 6px; border-radius: 4px; font-weight: 700; }
+
+        .lr-values { text-align: right; }
+        .lr-total { font-weight: 800; color: var(--green); display: block; font-size: 1.1rem; }
+        .lr-falta { font-size: 0.7rem; color: var(--red); }
+        .batido { color: var(--blue) !important; }
+
+        /* Overlays */
+        #overlay-start, #overlay-evento { position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: 10000; display: flex; align-items: center; justify-content: center; backdrop-filter: blur(10px); }
+        #overlay-start { background: rgba(0,0,0,0.8); }
+        #overlay-evento { background: rgba(0,0,0,0.95); display: none; flex-direction: column; }
+        #btn-start { padding: 15px 40px; font-size: 1.2rem; background: var(--green); color: #000; border: none; border-radius: 50px; font-weight: 900; cursor: pointer; text-transform: uppercase; box-shadow: 0 0 20px rgba(0,230,118,0.4); }
+        
+        .evento-titulo { font-size: 3rem; font-weight: 900; margin-bottom: 20px; color: var(--green); text-transform: uppercase; letter-spacing: 2px; }
+        .evento-foto { width: 220px; height: 220px; border-radius: 50%; border: 8px solid #fff; object-fit: cover; margin-bottom: 20px; box-shadow: 0 0 50px rgba(255,255,255,0.2); }
+        .evento-nome { font-size: 2.5rem; font-weight: 900; color: #fff; margin-bottom: 10px; }
+        .evento-valor { font-size: 4rem; font-weight: 900; color: var(--gold); text-shadow: 0 0 20px rgba(255, 215, 0, 0.5); }
     </style>
 </head>
 <body>
 
-    <div id="overlay-start"><button id="btn-start">INICIAR PAINEL</button></div>
+    <div id="overlay-start"><button id="btn-start">INICIAR SISTEMA</button></div>
 
     <div id="overlay-evento">
-        <div id="ev-titulo" class="evento-titulo">NOVA VENDA!</div>
+        <div class="evento-titulo">NOVA VENDA!</div>
         <img id="ev-foto" class="evento-foto" src="">
         <div id="ev-nome" class="evento-nome">NOME</div>
-        <div id="ev-detalhe" style="font-size:1.5rem; color:#ccc">Valor</div>
+        <div id="ev-valor" class="evento-valor">R$ 0,00</div>
     </div>
 
     <audio id="som-caixa" src="https://www.myinstants.com/media/sounds/ka-ching.mp3"></audio> 
     <audio id="som-aplausos" src="https://www.myinstants.com/media/sounds/aplausos_2.mp3"></audio>
 
-    <div class="main-header-title"><h1>RANKING DE VENDAS <span>AMMO</span></h1></div>
+    <div class="main-header-title"><h1>GESTÃO À VISTA <span>ÓTICAS AMMO</span></h1></div>
 
     <div class="header-metrics">
-        <div class="metric-card"><h3>Meta Equipe</h3><span class="value" id="meta-geral">...</span></div>
-        <div class="metric-card"><h3>Realizado</h3><span class="value" style="color:var(--green)" id="acumulado-mes">...</span></div>
-        <div class="metric-card"><h3>Dias Úteis</h3><span class="value" style="color:var(--blue)" id="dias-restantes">...</span></div>
-        <div class="metric-card"><h3>Vendido Hoje</h3><span class="value" style="color:var(--green)" id="venda-hoje-total">...</span></div>
+        <div class="metric-card">
+            <h3>Meta Global (Loja)</h3>
+            <span class="value" id="meta-loja" style="color:var(--text-main)">...</span>
+        </div>
+        <div class="metric-card">
+            <h3>Realizado Total</h3>
+            <span class="value" id="realizado-loja" style="color:var(--green)">...</span>
+        </div>
+        <div class="metric-card">
+            <h3>Vendido Hoje</h3>
+            <span class="value" id="venda-hoje" style="color:var(--gold)">...</span>
+        </div>
+        <div class="metric-card">
+            <h3>Dias Restantes (Úteis)</h3>
+            <span class="value" id="dias-uteis" style="color:var(--blue)">...</span>
+        </div>
     </div>
 
     <div class="dashboard-container">
@@ -98,12 +120,13 @@
 
 <script>
     // ==========================================
-    // ⚠️ COLE A NOVA URL AQUI:
+    // ⚠️ SUA URL DO APPS SCRIPT AQUI:
     // ==========================================
-    var WEB_APP_URL = "https://script.google.com/macros/s/AKfycbwrV_p243Yk3nknOxCdRflJSygi2a2Kl1HDGWlNBOXyzqE-PRsULLnGs7KKnoGVYrcz/exec"; 
+    const WEB_APP_URL = "SUA_NOVA_URL_AQUI"; 
     // ==========================================
 
-    var equipe = [
+    // CONFIGURAÇÃO DA EQUIPE E METAS MENSAIS INDIVIDUAIS
+    const equipe = [
         { nome: "ADRIANA VITORELLI", meta: 20000, foto: "https://i.postimg.cc/rwWD44QK/Whats-App-Image-2026-02-12-at-22-40-21.jpg" },
         { nome: "CLAUDIA LIZ", meta: 20000, foto: "https://i.postimg.cc/Nfx4Fdpd/Whats-App-Image-2026-02-13-at-11-01-21.jpg" },
         { nome: "PATRICIA", meta: 10000, foto: "https://i.postimg.cc/jd185pFj/Whats-App-Image-2026-02-13-at-11-02-53.jpg" },
@@ -126,192 +149,249 @@
         { nome: "Vendedor 20", meta: 0, foto: "https://ui-avatars.com/api/?name=V20&background=random" }
     ];
 
-    var vendasAnteriores = {}; 
-    var filaAnimacao = [];
-    var animando = false;
-    var sistemaIniciado = false;
-    var primeiraCarga = true;
+    // VARIAVEIS DE CONTROLE
+    let vendasAnteriores = {};
+    let filaAnimacao = [];
+    let isAnimando = false;
+    let sistemaAtivo = false;
+    let primeiraExecucao = true;
 
-    function getAvatarSeguro(nome) { return `https://ui-avatars.com/api/?name=${encodeURIComponent(nome)}&background=random&color=fff&size=128`; }
-    function normalizarNome(nome) { return nome ? nome.toString().toUpperCase().trim() : ""; }
-    
-    function tratarValor(valor) {
-        if (typeof valor === 'number') return valor;
-        return parseFloat(valor.toString().replace("R$", "").replace(",", ".").trim()) || 0;
+    // --- FUNÇÕES DE AJUDA ---
+    function formatMoney(v) { return v.toLocaleString('pt-BR', {style:'currency', currency:'BRL'}); }
+    function normalizar(t) { return t ? t.toString().toUpperCase().trim() : ""; }
+    function getAvatar(n) { return `https://ui-avatars.com/api/?name=${encodeURIComponent(n)}&background=random&color=fff&size=128`; }
+
+    // --- CÁLCULO DE DIAS ÚTEIS RESTANTES (Seg a Sáb) ---
+    function calcDiasRestantes() {
+        let hoje = new Date();
+        let ano = hoje.getFullYear();
+        let mes = hoje.getMonth();
+        let ultimoDia = new Date(ano, mes + 1, 0).getDate(); // Ultimo dia do mês
+        let uteis = 0;
+        
+        // Conta de HOJE até o fim do mês
+        for(let d = hoje.getDate(); d <= ultimoDia; d++) {
+            let dataCheck = new Date(ano, mes, d);
+            let diaSemana = dataCheck.getDay();
+            if (diaSemana !== 0) { // Exclui Domingos (0)
+                uteis++;
+            }
+        }
+        return uteis > 0 ? uteis : 1; // Nunca retorna 0 para evitar divisão por zero
     }
 
-    function tocar(id) {
-        if (!sistemaIniciado) return;
-        try { var a = document.getElementById(id); if(a){ a.currentTime=0; a.volume=1; a.play().catch(e=>{}); } } catch(e){}
-    }
-
-    function adicionarEvento(nome, foto, valor) {
-        filaAnimacao.push({ nome, foto, valor });
+    // --- ANIMAÇÃO DE NOVA VENDA ---
+    function dispararEvento(nome, foto, valor) {
+        filaAnimacao.push({nome, foto, valor});
         processarFila();
     }
 
     function processarFila() {
-        if (animando || filaAnimacao.length === 0) return;
-        animando = true;
-        var ev = filaAnimacao.shift();
+        if (isAnimando || filaAnimacao.length === 0) return;
+        isAnimando = true;
         
-        var overlay = document.getElementById('overlay-evento');
-        document.getElementById('ev-foto').src = ev.foto;
-        document.getElementById('ev-foto').onerror = function() { this.src = getAvatarSeguro(ev.nome); };
+        let ev = filaAnimacao.shift();
+        let overlay = document.getElementById('overlay-evento');
+        
         document.getElementById('ev-nome').innerText = ev.nome;
-        document.getElementById('ev-detalhe').innerText = "+" + ev.valor.toLocaleString('pt-BR', {style:'currency', currency:'BRL'});
-        
-        tocar('som-aplausos');
-        confetti({ particleCount: 150, spread: 80, origin: { y: 0.6 } });
+        document.getElementById('ev-valor').innerText = "+" + formatMoney(ev.valor);
+        let img = document.getElementById('ev-foto');
+        img.src = ev.foto;
+        img.onerror = () => img.src = getAvatar(ev.nome);
+
+        // Som e Confete
+        let audio = document.getElementById('som-aplausos');
+        audio.currentTime = 0; audio.play().catch(e=>{});
+        confetti({ particleCount: 150, spread: 70, origin: { y: 0.6 } });
 
         overlay.style.display = 'flex';
-        setTimeout(function() { 
-            overlay.style.display = 'none'; 
-            animando = false; 
-            processarFila(); 
+        setTimeout(() => {
+            overlay.style.display = 'none';
+            isAnimando = false;
+            processarFila();
         }, 5000);
     }
 
-    function renderizarDashboard(ranking) {
-        var podium = document.getElementById('podium-container');
-        var list = document.getElementById('list-container');
-        podium.innerHTML = ''; list.innerHTML = '';
-
-        var top3 = ranking.slice(0, 3);
-        var resto = ranking.slice(3);
-
-        if (top3[1]) renderPodiumCard(top3[1], 2, podium); 
-        if (top3[0]) renderPodiumCard(top3[0], 1, podium); 
-        if (top3[2]) renderPodiumCard(top3[2], 3, podium); 
-
-        resto.forEach((r, i) => {
-            if (r.vendido <= 0) return; 
-            var rank = i + 4;
-            var pct = Math.min(r.pct, 100);
-            
-            // Lógica para mostrar valor de hoje na lista
-            var htmlHoje = r.hoje > 0 ? `<span class="lr-hoje">HOJE: +${r.hoje.toLocaleString('pt-BR',{style:'currency',currency:'BRL'})}</span>` : '';
-
-            var div = document.createElement('div');
-            div.className = 'list-row';
-            div.innerHTML = `
-                <div class="lr-rank">${rank}</div>
-                <img src="${r.foto}" class="lr-avatar" onerror="this.src='${getAvatarSeguro(r.nome)}'">
-                <div class="lr-info">
-                    <div class="lr-name">${r.nome}</div>
-                    <div class="progress-bar-container"><div class="progress-bar" style="width:${pct}%; background:${pct < 50 ? 'var(--red)' : 'var(--blue)'}"></div></div>
-                </div>
-                <div class="lr-values">
-                    <span class="lr-total">${r.vendido.toLocaleString('pt-BR',{style:'currency',currency:'BRL'})}</span>
-                    ${htmlHoje}
-                </div>`;
-            list.appendChild(div);
-        });
-    }
-
-    function renderPodiumCard(r, rank, container) {
-        var htmlHoje = r.hoje > 0 ? `<div class="p-hoje">HOJE: +${r.hoje.toLocaleString('pt-BR',{style:'currency',currency:'BRL'})}</div>` : '';
-        
-        var div = document.createElement('div');
-        div.className = `podium-place rank-${rank}`;
-        div.innerHTML = `
-            <img src="${r.foto}" class="podium-img" onerror="this.src='${getAvatarSeguro(r.nome)}'">
-            <div class="podium-card-body">
-                <div class="p-name">${r.nome.split(' ')[0]}</div>
-                <div class="p-val">${r.vendido.toLocaleString('pt-BR',{style:'currency',currency:'BRL'})}</div>
-                ${htmlHoje}
-            </div>`;
-        container.appendChild(div);
-    }
-
+    // --- ATUALIZAÇÃO DO DASHBOARD ---
     function atualizar() {
-        if (!sistemaIniciado) return;
-        
+        if (!sistemaAtivo) return;
+
         fetch(WEB_APP_URL + "?t=" + new Date().getTime())
         .then(res => res.json())
         .then(dados => {
             if (!dados || !dados.vendasHoje) return;
 
-            var vendasHoje = dados.vendasHoje; 
-            var vendasPorColab = {};
-            var vendasHojePorColab = {}; // Novo objeto para rastrear hoje
-            var totalMesRealizado = 0;
-            var totalHoje = 0;
-
-            // Gera data local YYYY-MM-DD
-            var d = new Date();
-            var hojeStr = d.getFullYear() + "-" + ("0"+(d.getMonth()+1)).slice(-2) + "-" + ("0" + d.getDate()).slice(-2);
+            // 1. Processar Vendas
+            let vendasMap = {};
+            let hojeMap = {};
+            let totalLoja = 0;
+            let totalHojeLoja = 0;
             
-            // Inicializa contadores
-            equipe.forEach(c => {
-                var chave = normalizarNome(c.nome);
-                vendasPorColab[chave] = 0;
-                vendasHojePorColab[chave] = 0;
+            // Data formatada YYYY-MM-DD para comparar com a API
+            let d = new Date();
+            let hojeStr = d.getFullYear() + "-" + ("0"+(d.getMonth()+1)).slice(-2) + "-" + ("0" + d.getDate()).slice(-2);
+
+            // Inicializa mapas
+            equipe.forEach(m => {
+                let key = normalizar(m.nome);
+                vendasMap[key] = 0;
+                hojeMap[key] = 0;
             });
 
-            vendasHoje.forEach(v => {
-                var nome = normalizarNome(v[0]);
-                var valor = tratarValor(v[1]);
-                var dataVenda = v[2]; // Vem do Apps Script como yyyy-mm-dd
+            // Soma vendas da planilha
+            dados.vendasHoje.forEach(v => {
+                let nome = normalizar(v[0]);
+                let valor = parseFloat(v[1]) || 0;
+                let dataVenda = v[2];
 
-                // Soma total geral
-                totalMesRealizado += valor;
+                if (vendasMap[nome] !== undefined) {
+                    vendasMap[nome] += valor;
+                    totalLoja += valor;
 
-                // Soma por colaborador acumulado
-                if (vendasPorColab[nome] !== undefined) {
-                    vendasPorColab[nome] += valor;
-                }
-                
-                // Comparação de data
-                if (dataVenda === hojeStr) {
-                    totalHoje += valor;
-                    if (vendasHojePorColab[nome] !== undefined) {
-                        vendasHojePorColab[nome] += valor;
+                    if (dataVenda === hojeStr) {
+                        hojeMap[nome] += valor;
+                        totalHojeLoja += valor;
                     }
                 }
             });
 
-            document.getElementById('acumulado-mes').innerText = totalMesRealizado.toLocaleString('pt-BR', {style:'currency', currency:'BRL', maximumFractionDigits:0});
-            document.getElementById('venda-hoje-total').innerText = totalHoje.toLocaleString('pt-BR', {style:'currency', currency:'BRL', maximumFractionDigits:0});
-            
-            // Detecta novas vendas (Animação)
-            if (!primeiraCarga) {
-                equipe.forEach(c => {
-                    var chave = normalizarNome(c.nome);
-                    var atual = vendasPorColab[chave];
-                    var anterior = vendasAnteriores[chave] || 0;
-                    if (atual > anterior) {
-                        var diff = atual - anterior;
-                        adicionarEvento(c.nome, c.foto, diff);
-                        setTimeout(() => tocar('som-caixa'), 500);
+            // 2. Verifica Novas Vendas (Para Animação)
+            if (!primeiraExecucao) {
+                equipe.forEach(m => {
+                    let key = normalizar(m.nome);
+                    let novoTotal = vendasMap[key];
+                    let antigoTotal = vendasAnteriores[key] || 0;
+                    if (novoTotal > antigoTotal) {
+                        let diff = novoTotal - antigoTotal;
+                        dispararEvento(m.nome, m.foto, diff);
+                        // Som de caixa registradora rápido
+                        let cx = document.getElementById('som-caixa');
+                        cx.currentTime=0; cx.play().catch(e=>{});
                     }
                 });
             }
+            
+            // Salva estado para próxima checagem
+            equipe.forEach(m => vendasAnteriores[normalizar(m.nome)] = vendasMap[normalizar(m.nome)]);
+            primeiraExecucao = false;
 
-            equipe.forEach(c => vendasAnteriores[normalizarNome(c.nome)] = vendasPorColab[normalizarNome(c.nome)]);
-            primeiraCarga = false;
+            // 3. Cálculos de Metas
+            let diasRestantes = calcDiasRestantes();
+            let metaLojaTotal = equipe.reduce((acc, curr) => acc + curr.meta, 0);
 
-            var ranking = equipe.map(c => {
-                var chave = normalizarNome(c.nome);
-                var vendido = vendasPorColab[chave];
-                var hoje = vendasHojePorColab[chave];
-                var pct = (c.meta > 0) ? (vendido / c.meta) * 100 : 0;
-                return { ...c, vendido, hoje, pct };
+            // 4. Monta Ranking Completo
+            let ranking = equipe.map(m => {
+                let key = normalizar(m.nome);
+                let vendido = vendasMap[key];
+                let falta = m.meta - vendido;
+                
+                // Lógica da Meta Diária Dinâmica
+                let metaDia = 0;
+                if (falta > 0) {
+                    metaDia = falta / diasRestantes;
+                }
+
+                return {
+                    ...m,
+                    vendido: vendido,
+                    falta: falta,
+                    metaDia: metaDia
+                };
             });
 
+            // Ordena por maior venda
             ranking.sort((a, b) => b.vendido - a.vendido);
-            renderizarDashboard(ranking);
 
-        }).catch(e => console.log("Erro ao atualizar", e));
+            // 5. Renderiza na Tela
+            renderizarTela(ranking, metaLojaTotal, totalLoja, totalHojeLoja, diasRestantes);
+
+        }).catch(e => console.error("Erro conexao", e));
     }
 
-    document.getElementById('btn-start').addEventListener('click', function() {
+    function renderizarTela(ranking, metaLoja, realizadoLoja, hojeLoja, diasUteis) {
+        // Topo Métricas
+        document.getElementById('meta-loja').innerText = formatMoney(metaLoja);
+        document.getElementById('realizado-loja').innerText = formatMoney(realizadoLoja);
+        document.getElementById('venda-hoje').innerText = formatMoney(hojeLoja);
+        document.getElementById('dias-uteis').innerText = diasUteis;
+
+        // Containers
+        let podium = document.getElementById('podium-container');
+        let list = document.getElementById('list-container');
+        podium.innerHTML = "";
+        list.innerHTML = "";
+
+        // Top 3
+        if(ranking[1]) renderPodium(ranking[1], 2, podium);
+        if(ranking[0]) renderPodium(ranking[0], 1, podium);
+        if(ranking[2]) renderPodium(ranking[2], 3, podium);
+
+        // Lista do 4º em diante
+        for(let i = 3; i < ranking.length; i++) {
+            let r = ranking[i];
+            // Oculta quem tem meta 0 e venda 0 (slots vazios)
+            if (r.meta === 0 && r.vendido === 0) continue;
+
+            let htmlMetaDia = "";
+            if (r.falta <= 0) {
+                htmlMetaDia = `<span class="meta-dia-badge batido">META BATIDA! 🏆</span>`;
+            } else {
+                htmlMetaDia = `META HOJE: <span class="meta-dia-badge">${formatMoney(r.metaDia)}</span>`;
+            }
+
+            let div = document.createElement('div');
+            div.className = "list-row";
+            div.innerHTML = `
+                <div class="lr-rank">${i+1}</div>
+                <img src="${r.foto}" class="lr-avatar" onerror="this.src='${getAvatar(r.nome)}'">
+                <div class="lr-info">
+                    <div class="lr-name">${r.nome}</div>
+                    <div class="meta-dia-box">${htmlMetaDia}</div>
+                </div>
+                <div class="lr-values">
+                    <span class="lr-total">${formatMoney(r.vendido)}</span>
+                    <span class="lr-falta">Falta: ${formatMoney(Math.max(0, r.falta))}</span>
+                </div>
+            `;
+            list.appendChild(div);
+        }
+    }
+
+    function renderPodium(r, pos, container) {
+        // Oculta slots vazios do podio se não tiver ninguem
+        if (!r) return;
+
+        let htmlMetaDia = r.falta <= 0 
+            ? `<div class="p-meta-val" style="color:var(--blue)">BATIDA!</div>`
+            : `<div class="p-meta-val">${formatMoney(r.metaDia)}</div>`;
+
+        let div = document.createElement('div');
+        div.className = `podium-place rank-${pos}`;
+        div.innerHTML = `
+            <img src="${r.foto}" class="podium-img" onerror="this.src='${getAvatar(r.nome)}'">
+            <div class="podium-card-body">
+                <div class="p-name">${r.nome.split(' ')[0]}</div>
+                <div class="p-val">${formatMoney(r.vendido)}</div>
+                <div class="p-meta-dia">
+                    META HOJE
+                    ${htmlMetaDia}
+                </div>
+            </div>
+        `;
+        container.appendChild(div);
+    }
+
+    // --- INICIALIZAÇÃO ---
+    document.getElementById('btn-start').addEventListener('click', () => {
         document.getElementById('overlay-start').style.display = 'none';
-        sistemaIniciado = true;
-        ['som-caixa', 'som-aplausos'].forEach(id => { var a = document.getElementById(id); a.volume=0; a.play().then(()=>a.pause()); });
+        sistemaAtivo = true;
+        // Destrava audio
+        ['som-caixa','som-aplausos'].forEach(id=>{ let a=document.getElementById(id); a.volume=0; a.play().then(()=>a.volume=1).catch(()=>{}); });
+        
         atualizar();
-        setInterval(atualizar, 5000); 
+        setInterval(atualizar, 5000);
     });
+
 </script>
 </body>
 </html>
