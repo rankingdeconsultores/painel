@@ -30,14 +30,17 @@
         .podium-card-body { background: rgba(27, 29, 41, 0.95); padding: 15px; border-radius: 15px; text-align: center; width: 100%; border-top: 4px solid #333; }
         .p-name { font-weight: 800; font-size: 1.1rem; text-transform: uppercase; }
         .p-val { font-size: 1.4rem; font-weight: 800; }
+        .p-hoje { font-size: 0.8rem; background: rgba(255,255,255,0.1); border-radius: 10px; padding: 2px 8px; margin-top: 5px; display: inline-block; }
         
         .rank-1 { order: 2; z-index: 10; margin-bottom: 40px; }
         .rank-1 .podium-img { border-color: #ffd700; width: 140px; height: 140px; }
         .rank-1 .podium-card-body { background: linear-gradient(135deg, #FFD700 0%, #FDB931 100%); color: #000; border-top-color: #fff; }
+        .rank-1 .p-hoje { color: #000; border: 1px solid #000; }
         
         .rank-2 { order: 1; animation-delay: 1.5s; }
         .rank-2 .podium-img { border-color: #e0e0e0; }
         .rank-2 .podium-card-body { background: linear-gradient(135deg, #e0e0e0 0%, #bdbdbd 100%); color: #000; border-top-color: #fff; }
+        .rank-2 .p-hoje { color: #000; border: 1px solid #000; }
 
         .rank-3 { order: 3; animation-delay: 1.0s; }
         .rank-3 .podium-img { border-color: #cd7f32; }
@@ -51,8 +54,9 @@
         .lr-name { font-weight: 700; font-size: 0.9rem; }
         .progress-bar-container { width: 100%; height: 4px; background: #111; margin-top: 5px; border-radius: 2px; }
         .progress-bar { height: 100%; border-radius: 2px; }
-        .lr-values { text-align: right; }
+        .lr-values { text-align: right; display: flex; flex-direction: column; align-items: flex-end; }
         .lr-total { font-weight: 800; color: var(--green); display: block; font-size: 1.3rem; }
+        .lr-hoje { font-size: 0.75rem; color: var(--blue); margin-top: 2px; font-weight: 700; }
         
         #overlay-start, #overlay-evento { position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: 10000; display: flex; align-items: center; justify-content: center; backdrop-filter: blur(5px); }
         #overlay-start { background: rgba(0,0,0,0.95); }
@@ -94,9 +98,9 @@
 
 <script>
     // ==========================================
-    // ⚠️ COLE A URL DO PASSO 1 AQUI:
+    // ⚠️ COLE A NOVA URL AQUI:
     // ==========================================
-    var WEB_APP_URL = "https://script.google.com/macros/s/AKfycbxJYIW3wIg2n6hlAFMod_dulSy5e3pIGbV30csoWirY2oqpRDhDUhPUUwO0BauCciuI/exec"; 
+    var WEB_APP_URL = "https://script.google.com/macros/s/AKfycbwrV_p243Yk3nknOxCdRflJSygi2a2Kl1HDGWlNBOXyzqE-PRsULLnGs7KKnoGVYrcz/exec"; 
     // ==========================================
 
     var equipe = [
@@ -184,6 +188,10 @@
             if (r.vendido <= 0) return; 
             var rank = i + 4;
             var pct = Math.min(r.pct, 100);
+            
+            // Lógica para mostrar valor de hoje na lista
+            var htmlHoje = r.hoje > 0 ? `<span class="lr-hoje">HOJE: +${r.hoje.toLocaleString('pt-BR',{style:'currency',currency:'BRL'})}</span>` : '';
+
             var div = document.createElement('div');
             div.className = 'list-row';
             div.innerHTML = `
@@ -195,12 +203,15 @@
                 </div>
                 <div class="lr-values">
                     <span class="lr-total">${r.vendido.toLocaleString('pt-BR',{style:'currency',currency:'BRL'})}</span>
+                    ${htmlHoje}
                 </div>`;
             list.appendChild(div);
         });
     }
 
     function renderPodiumCard(r, rank, container) {
+        var htmlHoje = r.hoje > 0 ? `<div class="p-hoje">HOJE: +${r.hoje.toLocaleString('pt-BR',{style:'currency',currency:'BRL'})}</div>` : '';
+        
         var div = document.createElement('div');
         div.className = `podium-place rank-${rank}`;
         div.innerHTML = `
@@ -208,6 +219,7 @@
             <div class="podium-card-body">
                 <div class="p-name">${r.nome.split(' ')[0]}</div>
                 <div class="p-val">${r.vendido.toLocaleString('pt-BR',{style:'currency',currency:'BRL'})}</div>
+                ${htmlHoje}
             </div>`;
         container.appendChild(div);
     }
@@ -222,35 +234,47 @@
 
             var vendasHoje = dados.vendasHoje; 
             var vendasPorColab = {};
+            var vendasHojePorColab = {}; // Novo objeto para rastrear hoje
             var totalMesRealizado = 0;
             var totalHoje = 0;
 
             // Gera data local YYYY-MM-DD
             var d = new Date();
             var hojeStr = d.getFullYear() + "-" + ("0"+(d.getMonth()+1)).slice(-2) + "-" + ("0" + d.getDate()).slice(-2);
-
-            equipe.forEach(c => vendasPorColab[normalizarNome(c.nome)] = 0);
+            
+            // Inicializa contadores
+            equipe.forEach(c => {
+                var chave = normalizarNome(c.nome);
+                vendasPorColab[chave] = 0;
+                vendasHojePorColab[chave] = 0;
+            });
 
             vendasHoje.forEach(v => {
                 var nome = normalizarNome(v[0]);
                 var valor = tratarValor(v[1]);
                 var dataVenda = v[2]; // Vem do Apps Script como yyyy-mm-dd
 
+                // Soma total geral
                 totalMesRealizado += valor;
 
+                // Soma por colaborador acumulado
                 if (vendasPorColab[nome] !== undefined) {
                     vendasPorColab[nome] += valor;
                 }
                 
+                // Comparação de data
                 if (dataVenda === hojeStr) {
                     totalHoje += valor;
+                    if (vendasHojePorColab[nome] !== undefined) {
+                        vendasHojePorColab[nome] += valor;
+                    }
                 }
             });
 
             document.getElementById('acumulado-mes').innerText = totalMesRealizado.toLocaleString('pt-BR', {style:'currency', currency:'BRL', maximumFractionDigits:0});
             document.getElementById('venda-hoje-total').innerText = totalHoje.toLocaleString('pt-BR', {style:'currency', currency:'BRL', maximumFractionDigits:0});
             
-            // Detecta novas vendas
+            // Detecta novas vendas (Animação)
             if (!primeiraCarga) {
                 equipe.forEach(c => {
                     var chave = normalizarNome(c.nome);
@@ -268,9 +292,11 @@
             primeiraCarga = false;
 
             var ranking = equipe.map(c => {
-                var vendido = vendasPorColab[normalizarNome(c.nome)];
+                var chave = normalizarNome(c.nome);
+                var vendido = vendasPorColab[chave];
+                var hoje = vendasHojePorColab[chave];
                 var pct = (c.meta > 0) ? (vendido / c.meta) * 100 : 0;
-                return { ...c, vendido, pct };
+                return { ...c, vendido, hoje, pct };
             });
 
             ranking.sort((a, b) => b.vendido - a.vendido);
@@ -282,12 +308,10 @@
     document.getElementById('btn-start').addEventListener('click', function() {
         document.getElementById('overlay-start').style.display = 'none';
         sistemaIniciado = true;
-        // Inicia áudios mudos para destravar autoplay
         ['som-caixa', 'som-aplausos'].forEach(id => { var a = document.getElementById(id); a.volume=0; a.play().then(()=>a.pause()); });
         atualizar();
-        setInterval(atualizar, 5000); // Atualiza a cada 5 segundos
+        setInterval(atualizar, 5000); 
     });
 </script>
 </body>
 </html>
-
