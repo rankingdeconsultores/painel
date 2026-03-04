@@ -6,88 +6,48 @@
     <title>RANKING DIÁRIO - AMMO</title>
     <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🔥</text></svg>">
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;800;900&display=swap" rel="stylesheet">
-    
     <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
 
     <style>
         :root { --bg-dark: #0f1016; --bg-card: #1b1d29; --text-main: #ffffff; --text-muted: #8b9bb4; --gold: #ffd700; --green: #00e676; --blue: #2979ff; --red: #ff1744; }
         body { background-color: var(--bg-dark); color: var(--text-main); font-family: 'Montserrat', sans-serif; margin: 0; padding: 0; height: 100vh; overflow: hidden; display: flex; flex-direction: column; }
-        
-        /* Cabeçalho */
         .main-header-title { text-align: center; padding: 15px 0; background: #111219; border-bottom: 1px solid #2a2d3e; z-index: 101; }
         .main-header-title h1 { margin: 0; font-size: 1.8rem; font-weight: 900; letter-spacing: 2px; color: #fff; text-transform: uppercase; }
         .main-header-title h1 span { color: var(--gold); }
         .sub-header { font-size: 0.8rem; color: var(--green); letter-spacing: 3px; margin-top: 5px; text-transform: uppercase; font-weight: 700; }
-
-        /* Métricas */
         .header-metrics { display: grid; grid-template-columns: repeat(4, 1fr); gap: 15px; padding: 15px; background: #151720; border-bottom: 1px solid #2a2d3e; }
         .metric-card { background: var(--bg-card); border-radius: 8px; padding: 10px; display: flex; flex-direction: column; align-items: center; justify-content: center; border: 1px solid #2a2d3e; }
         .metric-card h3 { margin: 0; font-size: 0.7rem; color: var(--text-muted); text-transform: uppercase; letter-spacing: 1px; }
         .metric-card .value { font-size: 1.3rem; font-weight: 800; margin-top: 5px; }
-
-        /* Layout */
         .dashboard-container { display: flex; flex: 1; overflow: hidden; padding: 20px; gap: 20px; background: radial-gradient(circle at 50% 50%, #1f2233 0%, #0f1016 80%); }
-        
-        /* Pódio Neon */
-        .podium-section { 
-            flex: 1.4; display: flex; align-items: flex-end; justify-content: center; padding-bottom: 30px; position: relative;
-            background: linear-gradient(to bottom, rgba(15, 16, 22, 0.2), rgba(15, 16, 22, 0.9)), 
-                        url('https://static.vecteezy.com/system/resources/previews/007/046/592/original/abstract-technology-futuristic-concept-blue-glowing-neon-lines-on-dark-background-vector.jpg');
-            background-size: cover; background-position: center;
-            border-radius: 20px; box-shadow: 0 0 30px rgba(41, 121, 255, 0.2); border: 1px solid #2979ff;
-        }
-
+        .podium-section { flex: 1.4; display: flex; align-items: flex-end; justify-content: center; padding-bottom: 30px; position: relative; background: linear-gradient(to bottom, rgba(15, 16, 22, 0.2), rgba(15, 16, 22, 0.9)), url('https://static.vecteezy.com/system/resources/previews/007/046/592/original/abstract-technology-futuristic-concept-blue-glowing-neon-lines-on-dark-background-vector.jpg'); background-size: cover; background-position: center; border-radius: 20px; box-shadow: 0 0 30px rgba(41, 121, 255, 0.2); border: 1px solid #2979ff; }
         @keyframes float { 0% { transform: translateY(0px); } 50% { transform: translateY(-15px); } 100% { transform: translateY(0px); } }
         .podium-place { display: flex; flex-direction: column; align-items: center; margin: 0 8px; width: 30%; position: relative; animation: float 4s ease-in-out infinite; }
-        .rank-1 { z-index: 10; padding-bottom: 20px; animation-delay: 0s; }
-        .rank-2 { animation-delay: 1.5s; }
-        .rank-3 { animation-delay: 0.8s; }
-        
-        .podium-img { width: 100px; height: 100px; border-radius: 50%; object-fit: cover; border: 4px solid #333; box-shadow: 0 10px 30px rgba(0,0,0,0.5); margin-bottom: 10px; z-index: 2; }
-        
-        .podium-card-body { 
-            background: rgba(20, 25, 40, 0.85); backdrop-filter: blur(8px); padding: 10px; border-radius: 15px; text-align: center; width: 100%; 
-            border-top: 4px solid #333; position: relative; box-shadow: 0 10px 20px rgba(0,0,0,0.3);
-        }
-        
-        .p-name { font-weight: 800; font-size: 1rem; text-transform: uppercase; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
-        /* Valor principal agora é O DE HOJE */
-        .p-val { font-size: 1.4rem; font-weight: 900; margin: 5px 0; color: var(--gold); } 
-        .p-secundario { font-size: 0.7rem; color: #ccc; border-top: 1px solid rgba(255,255,255,0.1); padding-top: 5px; margin-top: 5px; }
-
+        .rank-1 { z-index: 10; padding-bottom: 20px; }
+        .podium-img { width: 100px; height: 100px; border-radius: 50%; object-fit: cover; border: 4px solid #333; margin-bottom: 10px; }
         .rank-1 .podium-img { border-color: var(--gold); width: 140px; height: 140px; box-shadow: 0 0 25px rgba(255, 215, 0, 0.5); }
-        .rank-1 .podium-card-body { border-top-color: var(--gold); background: rgba(40, 30, 10, 0.9); }
-        .rank-2 .podium-img { border-color: #c0c0c0; }
-        .rank-2 .podium-card-body { border-top-color: #c0c0c0; }
-        .rank-3 .podium-img { border-color: #cd7f32; }
-        .rank-3 .podium-card-body { border-top-color: #cd7f32; }
-
-        /* Lista */
+        .podium-card-body { background: rgba(20, 25, 40, 0.85); backdrop-filter: blur(8px); padding: 10px; border-radius: 15px; text-align: center; width: 100%; border-top: 4px solid #333; }
+        .p-name { font-weight: 800; font-size: 1rem; text-transform: uppercase; }
+        .p-val { font-size: 1.4rem; font-weight: 900; margin: 5px 0; color: var(--gold); }
+        .p-secundario { font-size: 0.7rem; color: #ccc; border-top: 1px solid rgba(255,255,255,0.1); padding-top: 5px; }
         .list-section { flex: 1; background: rgba(21, 23, 32, 0.6); border-radius: 15px; padding: 10px; overflow-y: auto; display: flex; flex-direction: column; gap: 8px; border: 1px solid #2a2d3e; }
-        .list-row { display: flex; align-items: center; background: var(--bg-card); padding: 8px 12px; border-radius: 8px; border: 1px solid #2a2d3e; transition: transform 0.2s; }
-        .list-row:hover { transform: translateX(5px); background: #252836; }
-        
+        .list-row { display: flex; align-items: center; background: var(--bg-card); padding: 8px 12px; border-radius: 8px; border: 1px solid #2a2d3e; transition: 0.2s; }
         .lr-rank { font-size: 1rem; font-weight: 800; color: #555; width: 25px; }
-        .lr-avatar { width: 40px; height: 40px; border-radius: 50%; object-fit: cover; margin-right: 10px; border: 2px solid #333; }
-        .lr-info { flex: 1; display: flex; flex-direction: column; justify-content: center; }
+        .lr-avatar { width: 40px; height: 40px; border-radius: 50%; object-fit: cover; margin-right: 10px; }
+        .lr-info { flex: 1; }
         .lr-name { font-weight: 700; font-size: 0.85rem; }
-        
         .lr-values { text-align: right; }
-        .lr-total { font-weight: 800; color: var(--green); display: block; font-size: 1.2rem; }
+        .lr-total { font-weight: 800; color: var(--gold); display: block; font-size: 1.1rem; }
         .lr-sub { font-size: 0.7rem; color: #777; }
-        
-        .meta-dia-badge { background: #333; color: var(--blue); padding: 2px 6px; border-radius: 4px; font-weight: 700; font-size: 0.65rem; display: inline-block; margin-top: 3px; }
-
-        /* Overlays */
+        .meta-dia-badge { background: #333; color: var(--blue); padding: 2px 6px; border-radius: 4px; font-weight: 700; font-size: 0.65rem; }
         #overlay-start, #overlay-evento { position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: 10000; display: flex; align-items: center; justify-content: center; backdrop-filter: blur(10px); }
         #overlay-start { background: rgba(0,0,0,0.8); }
         #overlay-evento { background: rgba(0,0,0,0.95); display: none; flex-direction: column; }
-        #btn-start { padding: 15px 40px; font-size: 1.2rem; background: var(--green); color: #000; border: none; border-radius: 50px; font-weight: 900; cursor: pointer; text-transform: uppercase; box-shadow: 0 0 20px rgba(0,230,118,0.4); }
-        
-        .evento-titulo { font-size: 3rem; font-weight: 900; margin-bottom: 20px; color: var(--green); text-transform: uppercase; letter-spacing: 2px; }
-        .evento-foto { width: 220px; height: 220px; border-radius: 50%; border: 8px solid #fff; object-fit: cover; margin-bottom: 20px; box-shadow: 0 0 50px rgba(255,255,255,0.2); }
-        .evento-nome { font-size: 2.5rem; font-weight: 900; color: #fff; margin-bottom: 10px; }
-        .evento-valor { font-size: 4rem; font-weight: 900; color: var(--gold); text-shadow: 0 0 20px rgba(255, 215, 0, 0.5); }
+        #btn-start { padding: 15px 40px; font-size: 1.2rem; background: var(--green); color: #000; border: none; border-radius: 50px; font-weight: 900; cursor: pointer; }
+        .evento-titulo { font-size: 3rem; font-weight: 900; color: var(--green); }
+        .evento-foto { width: 220px; height: 220px; border-radius: 50%; border: 8px solid #fff; object-fit: cover; margin: 20px 0; }
+        .evento-nome { font-size: 2.5rem; font-weight: 900; color: #fff; }
+        .evento-valor { font-size: 4rem; font-weight: 900; color: var(--gold); }
     </style>
 </head>
 <body>
@@ -110,22 +70,10 @@
     </div>
 
     <div class="header-metrics">
-        <div class="metric-card">
-            <h3>Meta Global</h3>
-            <span class="value" id="meta-loja" style="color:var(--text-main)">...</span>
-        </div>
-        <div class="metric-card">
-            <h3>Realizado Mês</h3>
-            <span class="value" id="realizado-loja" style="color:var(--blue)">...</span>
-        </div>
-        <div class="metric-card">
-            <h3>Vendido Hoje</h3>
-            <span class="value" id="venda-hoje" style="color:var(--gold); border-bottom: 2px solid var(--gold)">...</span>
-        </div>
-        <div class="metric-card">
-            <h3>Dias Restantes</h3>
-            <span class="value" id="dias-uteis" style="color:var(--text-muted)">...</span>
-        </div>
+        <div class="metric-card"><h3>Meta Global</h3><span class="value" id="meta-loja">...</span></div>
+        <div class="metric-card"><h3>Realizado Mês</h3><span class="value" id="realizado-loja" style="color:var(--blue)">...</span></div>
+        <div class="metric-card"><h3>Vendido Hoje</h3><span class="value" id="venda-hoje" style="color:var(--gold)">...</span></div>
+        <div class="metric-card"><h3>Dias Restantes</h3><span class="value" id="dias-uteis">...</span></div>
     </div>
 
     <div class="dashboard-container">
@@ -134,11 +82,8 @@
     </div>
 
 <script>
-    // ==========================================
-    // ⚠️ SUA URL DO APPS SCRIPT AQUI:
-    // ==========================================
+    // URL DO SEU GOOGLE SCRIPT (MANTENHA A QUE VOCÊ JÁ TEM)
     const WEB_APP_URL = "https://script.google.com/macros/s/AKfycbwrV_p243Yk3nknOxCdRflJSygi2a2Kl1HDGWlNBOXyzqE-PRsULLnGs7KKnoGVYrcz/exec"; 
-    // ==========================================
 
     const equipe = [
         { nome: "ADRIANA VITORELLI", meta: 20000, foto: "https://i.postimg.cc/rwWD44QK/Whats-App-Image-2026-02-12-at-22-40-21.jpg" },
@@ -155,12 +100,7 @@
         { nome: "VIVIANE", meta: 20000, foto: "https://i.postimg.cc/j5s2GdyV/Whats-App-Image-2026-02-13-at-11-19-43.jpg" },
         { nome: "GABRIELLY", meta: 25000, foto: "https://i.postimg.cc/MZfJzJ5R/Whats-App-Image-2026-02-13-at-11-12-49.jpg" },
         { nome: "RYANE", meta: 20000, foto: "https://i.postimg.cc/gJqRZTqN/Whats-App-Image-2026-02-13-at-11-17-57.jpg" },
-        { nome: "SUELI", meta: 30000, foto: "https://i.postimg.cc/qRMn2Gbz/Whats-App-Image-2026-02-13-at-11-28-48.jpg" },
-        { nome: "GISELI", meta: 20000, foto: "https://ui-avatars.com/api/?name=V16&background=random" },
-        { nome: "CAMILA INGRA", meta: 30000, foto: "https://ui-avatars.com/api/?name=V17&background=random" },
-        { nome: "Vendedor 18", meta: 0, foto: "https://ui-avatars.com/api/?name=V18&background=random" },
-        { nome: "Vendedor 19", meta: 0, foto: "https://ui-avatars.com/api/?name=V19&background=random" },
-        { nome: "Vendedor 20", meta: 0, foto: "https://ui-avatars.com/api/?name=V20&background=random" }
+        { nome: "SUELI", meta: 30000, foto: "https://i.postimg.cc/qRMn2Gbz/Whats-App-Image-2026-02-13-at-11-28-48.jpg" }
     ];
 
     let vendasAnteriores = {};
@@ -175,16 +115,12 @@
 
     function calcDiasRestantes() {
         let hoje = new Date();
-        let ano = hoje.getFullYear();
-        let mes = hoje.getMonth();
-        let ultimoDia = new Date(ano, mes + 1, 0).getDate();
+        let ultimoDia = new Date(hoje.getFullYear(), hoje.getMonth() + 1, 0).getDate();
         let uteis = 0;
         for(let d = hoje.getDate(); d <= ultimoDia; d++) {
-            let dataCheck = new Date(ano, mes, d);
-            let diaSemana = dataCheck.getDay();
-            if (diaSemana !== 0) uteis++;
+            if (new Date(hoje.getFullYear(), hoje.getMonth(), d).getDay() !== 0) uteis++;
         }
-        return uteis > 0 ? uteis : 1;
+        return uteis || 1;
     }
 
     function dispararEvento(nome, foto, valor) {
@@ -202,166 +138,91 @@
         let img = document.getElementById('ev-foto');
         img.src = ev.foto;
         img.onerror = () => img.src = getAvatar(ev.nome);
-        let audio = document.getElementById('som-aplausos');
-        audio.currentTime = 0; audio.play().catch(e=>{});
+        document.getElementById('som-aplausos').play().catch(()=>{});
         confetti({ particleCount: 150, spread: 70, origin: { y: 0.6 } });
         overlay.style.display = 'flex';
-        setTimeout(() => {
-            overlay.style.display = 'none';
-            isAnimando = false;
-            processarFila();
-        }, 5000);
+        setTimeout(() => { overlay.style.display = 'none'; isAnimando = false; processarFila(); }, 5000);
     }
 
     function atualizar() {
         if (!sistemaAtivo) return;
-
-        fetch(WEB_APP_URL + "?t=" + new Date().getTime())
-        .then(res => res.json())
-        .then(dados => {
+        fetch(WEB_APP_URL + "?t=" + new Date().getTime()).then(res => res.json()).then(dados => {
             if (!dados || !dados.vendasHoje) return;
 
-            let vendasMap = {};
-            let hojeMap = {};
-            let totalLoja = 0;
-            let totalHojeLoja = 0;
-            
+            let vendasMap = {}; let hojeMap = {}; let totalLoja = 0; let totalHojeLoja = 0;
             let d = new Date();
-            let hojeStr = d.getFullYear() + "-" + ("0"+(d.getMonth()+1)).slice(-2) + "-" + ("0" + d.getDate()).slice(-2);
+            let mesAtualStr = d.getFullYear() + "-" + ("0"+(d.getMonth()+1)).slice(-2);
+            let hojeStr = mesAtualStr + "-" + ("0" + d.getDate()).slice(-2);
 
-            equipe.forEach(m => {
-                let key = normalizar(m.nome);
-                vendasMap[key] = 0;
-                hojeMap[key] = 0;
-            });
+            equipe.forEach(m => { vendasMap[normalizar(m.nome)] = 0; hojeMap[normalizar(m.nome)] = 0; });
 
             dados.vendasHoje.forEach(v => {
                 let nome = normalizar(v[0]);
                 let valor = parseFloat(v[1]) || 0;
                 let dataVenda = v[2];
 
-                if (vendasMap[nome] !== undefined) {
+                if (vendasMap[nome] !== undefined && dataVenda.startsWith(mesAtualStr)) {
                     vendasMap[nome] += valor;
                     totalLoja += valor;
-
-                    if (dataVenda === hojeStr) {
-                        hojeMap[nome] += valor;
-                        totalHojeLoja += valor;
-                    }
+                    if (dataVenda === hojeStr) { hojeMap[nome] += valor; totalHojeLoja += valor; }
                 }
             });
 
             if (!primeiraExecucao) {
                 equipe.forEach(m => {
                     let key = normalizar(m.nome);
-                    let novoTotal = vendasMap[key];
-                    let antigoTotal = vendasAnteriores[key] || 0;
-                    if (novoTotal > antigoTotal) {
-                        let diff = novoTotal - antigoTotal;
-                        dispararEvento(m.nome, m.foto, diff);
-                        let cx = document.getElementById('som-caixa');
-                        cx.currentTime=0; cx.play().catch(e=>{});
+                    if (vendasMap[key] > (vendasAnteriores[key] || 0)) {
+                        dispararEvento(m.nome, m.foto, vendasMap[key] - (vendasAnteriores[key] || 0));
+                        document.getElementById('som-caixa').play().catch(()=>{});
                     }
                 });
             }
-            
             equipe.forEach(m => vendasAnteriores[normalizar(m.nome)] = vendasMap[normalizar(m.nome)]);
             primeiraExecucao = false;
 
             let diasRestantes = calcDiasRestantes();
-            let metaLojaTotal = equipe.reduce((acc, curr) => acc + curr.meta, 0);
-
+            let metaTotal = equipe.reduce((acc, curr) => acc + curr.meta, 0);
             let ranking = equipe.map(m => {
-                let key = normalizar(m.nome);
-                let vendido = vendasMap[key];
-                let hoje = hojeMap[key];
-                let falta = m.meta - vendido;
-                let metaDia = falta > 0 ? falta / diasRestantes : 0;
+                let v = vendasMap[normalizar(m.nome)] || 0;
+                let h = hojeMap[normalizar(m.nome)] || 0;
+                let falta = m.meta - v;
+                return { ...m, vendido: v, hoje: h, metaDia: falta > 0 ? falta / diasRestantes : 0 };
+            }).sort((a,b) => b.hoje - a.hoje || b.vendido - a.vendido);
 
-                return { ...m, vendido, hoje, falta, metaDia };
-            });
-
-            // --- LÓGICA DE ORDENAÇÃO ALTERADA PARA HOJE ---
-            ranking.sort((a, b) => {
-                // 1. Quem vendeu mais HOJE
-                if (b.hoje !== a.hoje) {
-                    return b.hoje - a.hoje;
-                }
-                // 2. Desempate: Quem vendeu mais no MÊS
-                return b.vendido - a.vendido;
-            });
-
-            renderizarTela(ranking, metaLojaTotal, totalLoja, totalHojeLoja, diasRestantes);
-
-        }).catch(e => console.error("Erro conexao", e));
+            renderizar(ranking, metaTotal, totalLoja, totalHojeLoja, diasRestantes);
+        });
     }
 
-    function renderizarTela(ranking, metaLoja, realizadoLoja, hojeLoja, diasUteis) {
+    function renderizar(ranking, metaLoja, realizadoLoja, hojeLoja, diasUteis) {
         document.getElementById('meta-loja').innerText = formatMoney(metaLoja);
         document.getElementById('realizado-loja').innerText = formatMoney(realizadoLoja);
         document.getElementById('venda-hoje').innerText = formatMoney(hojeLoja);
         document.getElementById('dias-uteis').innerText = diasUteis;
+        
+        let pod = document.getElementById('podium-container'); let list = document.getElementById('list-container');
+        pod.innerHTML = ""; list.innerHTML = "";
 
-        let podium = document.getElementById('podium-container');
-        let list = document.getElementById('list-container');
-        podium.innerHTML = "";
-        list.innerHTML = "";
+        const renderP = (r, p) => {
+            if(!r) return;
+            let div = document.createElement('div'); div.className = `podium-place rank-${p}`;
+            div.innerHTML = `<img src="${r.foto}" class="podium-img" onerror="this.src='${getAvatar(r.nome)}'"><div class="podium-card-body"><div class="p-name">${r.nome.split(' ')[0]}</div><div class="p-val">${formatMoney(r.hoje)}</div><div class="p-secundario">MÊS: ${formatMoney(r.vendido)}</div></div>`;
+            pod.appendChild(div);
+        }
+        renderP(ranking[1], 2); renderP(ranking[0], 1); renderP(ranking[2], 3);
 
-        if(ranking[1]) renderPodium(ranking[1], 2, podium);
-        if(ranking[0]) renderPodium(ranking[0], 1, podium);
-        if(ranking[2]) renderPodium(ranking[2], 3, podium);
-
-        for(let i = 3; i < ranking.length; i++) {
+        for(let i=3; i<ranking.length; i++) {
             let r = ranking[i];
-            
-            // Ocultar da lista apenas se nunca vendeu nada no mês E não vendeu hoje
-            if (r.vendido === 0 && r.hoje === 0 && r.meta === 0) continue;
-
-            let div = document.createElement('div');
-            div.className = "list-row";
-            div.innerHTML = `
-                <div class="lr-rank">${i+1}</div>
-                <img src="${r.foto}" class="lr-avatar" onerror="this.src='${getAvatar(r.nome)}'">
-                <div class="lr-info">
-                    <div class="lr-name">${r.nome}</div>
-                    <span class="meta-dia-badge">Meta Diária: ${formatMoney(r.metaDia)}</span>
-                </div>
-                <div class="lr-values">
-                    <span class="lr-total" style="color:var(--gold)">HOJE: ${formatMoney(r.hoje)}</span>
-                    <span class="lr-sub">Mês: ${formatMoney(r.vendido)}</span>
-                </div>
-            `;
+            let div = document.createElement('div'); div.className = "list-row";
+            div.innerHTML = `<div class="lr-rank">${i+1}</div><img src="${r.foto}" class="lr-avatar" onerror="this.src='${getAvatar(r.nome)}'"><div class="lr-info"><div class="lr-name">${r.nome}</div><span class="meta-dia-badge">Meta Diária: ${formatMoney(r.metaDia)}</span></div><div class="lr-values"><span class="lr-total">${formatMoney(r.hoje)}</span><span class="lr-sub">Mês: ${formatMoney(r.vendido)}</span></div>`;
             list.appendChild(div);
         }
-    }
-
-    function renderPodium(r, pos, container) {
-        if (!r) return;
-
-        let div = document.createElement('div');
-        div.className = `podium-place rank-${pos}`;
-        div.innerHTML = `
-            <img src="${r.foto}" class="podium-img" onerror="this.src='${getAvatar(r.nome)}'">
-            <div class="podium-card-body">
-                <div class="p-name">${r.nome.split(' ')[0]}</div>
-                <div class="p-val" title="Venda Hoje">${formatMoney(r.hoje)}</div>
-                <div class="p-secundario">
-                    MÊS: ${formatMoney(r.vendido)}
-                </div>
-            </div>
-        `;
-        container.appendChild(div);
     }
 
     document.getElementById('btn-start').addEventListener('click', () => {
         document.getElementById('overlay-start').style.display = 'none';
         sistemaAtivo = true;
-        ['som-caixa','som-aplausos'].forEach(id=>{ let a=document.getElementById(id); a.volume=0; a.play().then(()=>a.volume=1).catch(()=>{}); });
-        
-        atualizar();
-        setInterval(atualizar, 5000);
+        atualizar(); setInterval(atualizar, 5000);
     });
-
 </script>
 </body>
 </html>
